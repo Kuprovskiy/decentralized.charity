@@ -1,47 +1,88 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="project">
-            <h2><span jhiTranslate="decentralizedcharityApp.project.detail.title">Project</span> {{project.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="decentralizedcharityApp.project.name">Name</span></dt>
-                <dd>
-                    <span>{{project.name}}</span>
-                </dd>
-                <dt><span jhiTranslate="decentralizedcharityApp.project.amount">Amount</span></dt>
-                <dd>
-                    <span>{{project.amount}}</span>
-                </dd>
-                <dt><span jhiTranslate="decentralizedcharityApp.project.projectType">Project Type</span></dt>
-                <dd>
-                    <span jhiTranslate="{{'decentralizedcharityApp.ProjectType.' + project.projectType}}">{{project.projectType}}</span>
-                </dd>
-                <dt><span jhiTranslate="decentralizedcharityApp.project.expiredDate">Expired Date</span></dt>
-                <dd>
-                    <span>{{project.expiredDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="decentralizedcharityApp.project.description">Description</span></dt>
-                <dd>
-                    <span>{{project.description}}</span>
-                </dd>
-                <dt><span jhiTranslate="decentralizedcharityApp.project.user">User</span></dt>
-                <dd>
-                    {{project.userLogin}}
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/project', project.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+<div>
+    <div class="project-container">
+        <div class="row justify-content-center">
+            <div class="col-7 project-left-side">
+                <h2 class="project-name">{{project.name}}</h2>
+                <p class="project-description" [innerHTML]="project.description"></p>
+            </div>
+            <div class="col-4 project-right-side">
+                <h2>Donate</h2>
+                <br>
+                <form action="">
+                    <div>
+                        <button class="donate-button">UAH 150</button>
+                        <button class="donate-button">UAH 250</button>
+                        <button class="donate-button">UAH 500</button>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Amount (UAH 150)" class="donate-input">
+                    </div>
+                    <div>
+                        <button class="donate-submit-button">Donate Now</button>
+                    </div>
+                    <div>
+                        <a class="donate-details-link" [routerLink]="['/project', project.id, 'view' ]">Details</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-1"></div>
         </div>
     </div>
 </div>
+<div>
+    <br><br><br>
+    <h1>
+        <fa-icon [icon]="'th-large'"></fa-icon>
+        Donates | Spends
+    </h1>
+    <div class="row">
+        <div class="col-6 text-center">
+            <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType">
+            </canvas>
+        </div>
+        <div class="col-6 text-center"></div>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <br><br><br>
+        <h1>Transactions</h1>
+        <div class="col-12">
+            <div class="table-responsive" *ngIf="transactions?.length > 0">
+                <table class="table table-striped" aria-describedby="page-heading">
+                    <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="txid"><span>Txid</span></th>
+                        <th jhiSortBy="amount"><span>Amount</span></th>
+                        <th jhiSortBy="transactionType"><span>Transaction Type</span></th>
+                        <th jhiSortBy="createdDate"><span>Created Date</span></th>
+                        <th jhiSortBy="transactionStatus"><span>Status</span></th>
+                        <th jhiSortBy="key"><span>Key</span></th>
+                        <th jhiSortBy="note"><span>Note</span></th>
+                        <th jhiSortBy="userLogin"><span>User</span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let transactions of transactions ;trackBy: trackId">
+                        <td>{{transactions.txid}}</td>
+                        <td>{{transactions.amount}}</td>
+                        <td jhiTranslate="{{'decentralizedcharityApp.TransactionType.' + transactions.transactionType}}">{{transactions.transactionType}}</td>
+                        <td>{{transactions.createdDate | date:'medium'}}</td>
+                        <td>{{transactions.transactionStatus}}</td>
+                        <td>{{transactions.key}}</td>
+                        <td>{{transactions.note}}</td>
+                        <td>
+                            {{transactions.userLogin}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

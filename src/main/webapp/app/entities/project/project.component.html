@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-7 project-left-side">
                 <h2 class="project-name">{{project.name}}</h2>
-                <p>{{project.description}}</p>
+                <p class="project-description" [innerHTML]="project.description"></p>
             </div>
             <div class="col-4 project-right-side">
                 <h2>Donate</h2>

@@ -20,6 +20,12 @@
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
+        <!-- Blockly dependency -->
+        <bouncycastle.version>1.61</bouncycastle.version>
+        <jackson.datatype.version>2.9.8</jackson.datatype.version>
+        <okhttp.version>3.12.0</okhttp.version>
+        <junit.version>4.12</junit.version>
+
         <!-- Build properties -->
         <maven.version>3.3.9</maven.version>
         <java.version>1.8</java.version>
@@ -103,6 +109,33 @@
     </dependencyManagement>
 
     <dependencies>
+
+        <!--Bloqly dependencies-->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.datatype.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>io.github.jhipster</groupId>
             <artifactId>jhipster-framework</artifactId>

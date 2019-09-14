@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="transactions">
+            <h2><span jhiTranslate="decentralizedcharityApp.transactions.detail.title">Transactions</span> {{transactions.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.txid">Txid</span></dt>
+                <dd>
+                    <span>{{transactions.txid}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.amount">Amount</span></dt>
+                <dd>
+                    <span>{{transactions.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.transactionType">Transaction Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'decentralizedcharityApp.TransactionType.' + transactions.transactionType}}">{{transactions.transactionType}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.createdDate">Created Date</span></dt>
+                <dd>
+                    <span>{{transactions.createdDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.transactionStatus">Transaction Status</span></dt>
+                <dd>
+                    <span>{{transactions.transactionStatus}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.blockHeight">Block Height</span></dt>
+                <dd>
+                    <span>{{transactions.blockHeight}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.key">Key</span></dt>
+                <dd>
+                    <span>{{transactions.key}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.note">Note</span></dt>
+                <dd>
+                    <span>{{transactions.note}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.project">Project</span></dt>
+                <dd>
+                    <div *ngIf="transactions.projectId">
+                        <a [routerLink]="['/project', transactions.projectId, 'view']">{{transactions.projectId}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.transactions.user">User</span></dt>
+                <dd>
+                    {{transactions.userLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transactions', transactions.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

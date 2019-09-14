@@ -1,0 +1,10 @@
+{
+  "decentralizedcharityApp": {
+    "TransactionType": {
+      "null": "",
+      "DONATE": "DONATE",
+      "WITHDRAW": "WITHDRAW",
+      "SUPPLY_CHAIN": "SUPPLY_CHAIN"
+    }
+  }
+}

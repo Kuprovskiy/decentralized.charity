@@ -1,0 +1,31 @@
+{
+  "decentralizedcharityApp": {
+    "transactions": {
+      "home": {
+        "title": "Transactions",
+        "createLabel": "Crear nuevo Transactions",
+        "createOrEditLabel": "Crear o editar Transactions",
+        "notFound": "No Transactions found"
+      },
+      "created": "Un nuevo Transactions ha sido creado con el identificador {{ param }}",
+      "updated": "Un Transactions ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Transactions ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Transactions {{ id }}?"
+      },
+      "detail": {
+        "title": "Transactions"
+      },
+      "txid": "Txid",
+      "amount": "Amount",
+      "transactionType": "Transaction Type",
+      "createdDate": "Created Date",
+      "transactionStatus": "Transaction Status",
+      "blockHeight": "Block Height",
+      "key": "Key",
+      "note": "Note",
+      "project": "Project",
+      "user": "User"
+    }
+  }
+}
