@@ -10,6 +10,7 @@ import { TransactionsService } from 'app/entities/transactions/transactions.serv
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { AccountService } from 'app/core';
 import { Subscription } from 'rxjs';
+
 import { Label, MultiDataSet } from 'ng2-charts';
 import { ChartType } from 'chart.js';
 
@@ -33,6 +34,7 @@ export class ProjectDetailComponent implements OnInit {
   public doughnutChartLabels: Label[] = ['Founded', 'Spend'];
   public doughnutChartData: MultiDataSet = [[]];
   public doughnutChartType: ChartType = 'doughnut';
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected transactionsService: TransactionsService,
