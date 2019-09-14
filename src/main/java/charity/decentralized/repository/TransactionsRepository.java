@@ -1,6 +1,7 @@
 package charity.decentralized.repository;
 import charity.decentralized.domain.Project;
 import charity.decentralized.domain.Transactions;
+import charity.decentralized.domain.enumeration.TransactionType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
@@ -18,4 +19,6 @@ public interface TransactionsRepository extends JpaRepository<Transactions, Long
     List<Transactions> findByUserIsCurrentUser();
 
     Page<Transactions> findAllByProject(Pageable pageable, Project project);
+
+    List<Transactions> findAllByProjectAndTransactionType(Project project, TransactionType transactionType);
 }

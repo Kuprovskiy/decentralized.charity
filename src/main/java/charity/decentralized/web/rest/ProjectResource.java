@@ -161,5 +161,4 @@ public class ProjectResource {
         BalanceDTO balance = new BalanceDTO(ethServiceImpl.balanceOf(projectDTO.toString()));//TODO
         return ResponseEntity.ok().body(balance);
     }
-
 }

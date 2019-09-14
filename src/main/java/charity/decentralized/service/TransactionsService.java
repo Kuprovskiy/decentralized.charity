@@ -1,11 +1,13 @@
 package charity.decentralized.service;
 
+import charity.decentralized.domain.Transactions;
 import charity.decentralized.service.dto.BloqlyTransactionsDTO;
 import charity.decentralized.service.dto.TransactionsDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,10 +42,7 @@ public interface TransactionsService {
      */
     Optional<TransactionsDTO> findOne(Long id);
 
-    /**
-     * Delete the "id" transactions.
-     *
-     * @param id the id of the entity.
-     */
-    void delete(Long id);
+    List<Transactions> findAllDonateByProject(Long id);
+
+    List<Transactions> findAllSupplychainTransactionsByProject(Long id);
 }

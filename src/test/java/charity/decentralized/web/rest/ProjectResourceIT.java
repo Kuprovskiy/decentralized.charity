@@ -6,6 +6,7 @@ import charity.decentralized.domain.User;
 import charity.decentralized.repository.ProjectRepository;
 import charity.decentralized.service.ProjectService;
 import charity.decentralized.service.dto.ProjectDTO;
+import charity.decentralized.service.impl.EthServiceImpl;
 import charity.decentralized.service.mapper.ProjectMapper;
 import charity.decentralized.web.rest.errors.ExceptionTranslator;
 import charity.decentralized.service.dto.ProjectCriteria;
@@ -73,6 +74,9 @@ public class ProjectResourceIT {
     private ProjectQueryService projectQueryService;
 
     @Autowired
+    private EthServiceImpl ethServiceImpl;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -94,7 +98,7 @@ public class ProjectResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProjectResource projectResource = new ProjectResource(projectService, projectQueryService);
+        final ProjectResource projectResource = new ProjectResource(projectService, projectQueryService, ethServiceImpl);
         this.restProjectMockMvc = MockMvcBuilders.standaloneSetup(projectResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -229,7 +233,7 @@ public class ProjectResourceIT {
             .andExpect(jsonPath("$.[*].expiredDate").value(hasItem(DEFAULT_EXPIRED_DATE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getProject() throws Exception {

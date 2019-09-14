@@ -1,5 +1,6 @@
 package charity.decentralized.web.rest;
 
+import charity.decentralized.domain.Transactions;
 import charity.decentralized.service.TransactionsService;
 import charity.decentralized.service.dto.BloqlyTransactionsDTO;
 import charity.decentralized.web.rest.errors.BadRequestAlertException;
@@ -150,19 +151,6 @@ public class TransactionsResource {
     }
 
     /**
-     * {@code DELETE  /transactions/:id} : delete the "id" transactions.
-     *
-     * @param id the id of the transactionsDTO to delete.
-     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
-     */
-    @DeleteMapping("/transactions/{id}")
-    public ResponseEntity<Void> deleteTransactions(@PathVariable Long id) {
-        log.debug("REST request to delete Transactions : {}", id);
-        transactionsService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
-
-    /**
      * {@code POST  /transactions} : Create a new transactions in Bloqly blockchain.
      *
      * @param bloqlyTransactionsDTO the bloqlyTransactionsDTO to create.
@@ -175,5 +163,19 @@ public class TransactionsResource {
 
         String txHash = transactionsService.saveToBlockly(bloqlyTransactionsDTO);
         return ResponseEntity.ok().body(txHash);
+    }
+
+    @GetMapping("/transactions/{id}/donate")
+    public ResponseEntity getTransactionLocations(@PathVariable Long id) {
+        log.debug("REST request to get Transactions : {}", id);
+        List<Transactions> transactions = transactionsService.findAllDonateByProject(id);
+        return ResponseEntity.ok().body(transactions);
+    }
+
+    @GetMapping("/transactions/{id}/supplychain")
+    public ResponseEntity getTransactionSupplychain(@PathVariable Long id) {
+        log.debug("REST request to get Transactions : {}", id);
+        List<Transactions> transactions = transactionsService.findAllSupplychainTransactionsByProject(id);
+        return ResponseEntity.ok().body(transactions);
     }
 }
