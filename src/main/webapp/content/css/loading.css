@@ -1,3 +1,30 @@
+.home_container {
+  background-image: url(https://www.unicef.org/sites/default/files/styles/media_banner/public/2018-02/01_HP_UNI158415_Bluewash_WEB.jpg?itok=PU_hg3j5);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 30%;
+}
+
+.home_container span {
+  margin: 10px 30px;
+  width: auto;
+  background: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  font-size: 38px;
+  padding: 5px 8px;
+}
+.home_container p {
+  background: rgba(255, 255, 255, 0.9);
+  margin: 10px 30px;
+  font-size: 16px;
+  padding: -5px 8px;
+  max-width: 450px;
+}
+.card {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
 @keyframes lds-pacman-1 {
   0% {
     -webkit-transform: rotate(0deg);
