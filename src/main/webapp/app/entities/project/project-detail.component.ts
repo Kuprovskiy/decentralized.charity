@@ -11,6 +11,9 @@ import { ITEMS_PER_PAGE } from 'app/shared';
 import { AccountService } from 'app/core';
 import { Subscription } from 'rxjs';
 
+import { Label, MultiDataSet } from 'ng2-charts';
+import { ChartType } from 'chart.js';
+
 @Component({
   selector: 'jhi-project-detail',
   templateUrl: './project-detail.component.html'
@@ -28,6 +31,9 @@ export class ProjectDetailComponent implements OnInit {
   routeData: any;
   currentAccount: any;
   eventSubscriber: Subscription;
+  public doughnutChartLabels: Label[] = ['Founded', 'Spend'];
+  public doughnutChartData: MultiDataSet = [[]];
+  public doughnutChartType: ChartType = 'doughnut';
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -51,6 +57,7 @@ export class ProjectDetailComponent implements OnInit {
     this.predicate = 'id';
     this.activatedRoute.data.subscribe(({ project }) => {
       this.project = project;
+      this.doughnutChartData = [[this.project.amount, 30000]];
     });
 
     this.loadAll();

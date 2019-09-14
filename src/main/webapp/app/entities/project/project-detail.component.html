@@ -30,14 +30,27 @@
     </div>
 </div>
 <div>
+    <br><br><br>
+    <h1>
+        <fa-icon [icon]="'th-large'"></fa-icon>
+        Donates | Spends
+    </h1>
+    <div class="row">
+        <div class="col-6 text-center">
+            <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType">
+            </canvas>
+        </div>
+        <div class="col-6 text-center"></div>
+    </div>
+</div>
+<div>
     <div class="row">
         <br><br><br>
+        <h1>Transactions</h1>
         <div class="col-12">
-            <h1>
-                <fa-icon [icon]="'th-large'"></fa-icon>
-                Transactions
-            </h1>
-
             <div class="table-responsive" *ngIf="transactions?.length > 0">
                 <table class="table table-striped" aria-describedby="page-heading">
                     <thead>
@@ -71,5 +84,3 @@
         </div>
     </div>
 </div>
-
-

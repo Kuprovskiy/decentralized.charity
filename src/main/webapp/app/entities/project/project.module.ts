@@ -7,11 +7,14 @@ import { ProjectDetailComponent } from './project-detail.component';
 import { ProjectUpdateComponent } from './project-update.component';
 import { ProjectDeletePopupComponent, ProjectDeleteDialogComponent } from './project-delete-dialog.component';
 import { projectRoute, projectPopupRoute } from './project.route';
+import { BrowserModule } from '@angular/platform-browser';
+import 'chart.js';
+import { ChartsModule } from 'ng2-charts';
 
 const ENTITY_STATES = [...projectRoute, ...projectPopupRoute];
 
 @NgModule({
-  imports: [DecentralizedcharitySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [ChartsModule, DecentralizedcharitySharedModule, RouterModule.forChild(ENTITY_STATES)],
   declarations: [
     ProjectComponent,
     ProjectDetailComponent,
