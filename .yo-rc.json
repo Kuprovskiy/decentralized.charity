@@ -1,0 +1,47 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "charity.decentralized",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.2.0",
+    "applicationType": "monolith",
+    "baseName": "decentralizedcharity",
+    "packageName": "charity.decentralized",
+    "packageFolder": "charity/decentralized",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZDA1YTRiOTQ2YzA0ZWY0MDc0MGE5MTEwMGNlYzc1ZTkyZGI1MjgzODBlOTExMDgwNmZlNGVmNWZjZTRiNzJlNzkzNzk1MDliZWVkNDFlM2JhZmM1ZjVmYTMxYWFhZmUwYjFhZTk5ZDAxMjdlMDNhMGM2MzVjMDEzMDRkYzcyMTA=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "simplex",
+    "clientThemeVariant": "light",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "zh-cn",
+      "fr",
+      "es",
+      "ua"
+    ],
+    "blueprints": []
+  }
+}
