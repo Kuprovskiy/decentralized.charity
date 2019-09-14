@@ -1,0 +1,31 @@
+{
+  "decentralizedcharityApp": {
+    "transactions": {
+      "home": {
+        "title": "Transactions",
+        "createLabel": "创建新 Transactions",
+        "createOrEditLabel": "创建或编辑 Transactions",
+        "notFound": "No Transactions found"
+      },
+      "created": "Transactions {{ param }} 创建成功",
+      "updated": "Transactions {{ param }} 更新成功",
+      "deleted": "Transactions {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Transactions {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Transactions"
+      },
+      "txid": "Txid",
+      "amount": "Amount",
+      "transactionType": "Transaction Type",
+      "createdDate": "Created Date",
+      "transactionStatus": "Transaction Status",
+      "blockHeight": "Block Height",
+      "key": "Key",
+      "note": "Note",
+      "project": "Project",
+      "user": "User"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-transactions-heading" jhiTranslate="decentralizedcharityApp.transactions.home.createOrEditLabel">Create or edit a Transactions</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.txid" for="field_txid">Txid</label>
+                    <input type="text" class="form-control" name="txid" id="field_txid"
+                           formControlName="txid"/>
+                    <div *ngIf="editForm.get('txid').invalid && (editForm.get('txid').dirty || editForm.get('txid').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('txid').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           formControlName="amount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.transactionType" for="field_transactionType">Transaction Type</label>
+                    <select class="form-control" name="transactionType" formControlName="transactionType" id="field_transactionType">
+                        <option value="DONATE">{{'decentralizedcharityApp.TransactionType.DONATE' | translate}}</option>
+                        <option value="WITHDRAW">{{'decentralizedcharityApp.TransactionType.WITHDRAW' | translate}}</option>
+                        <option value="SUPPLY_CHAIN">{{'decentralizedcharityApp.TransactionType.SUPPLY_CHAIN' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.createdDate" for="field_createdDate">Created Date</label>
+                    <div class="d-flex">
+                        <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" formControlName="createdDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('createdDate').invalid && (editForm.get('createdDate').dirty || editForm.get('createdDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('createdDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('createdDate').errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.transactionStatus" for="field_transactionStatus">Transaction Status</label>
+                    <input type="checkbox" class="form-control" name="transactionStatus" id="field_transactionStatus"
+                           formControlName="transactionStatus"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.blockHeight" for="field_blockHeight">Block Height</label>
+                    <input type="number" class="form-control" name="blockHeight" id="field_blockHeight"
+                           formControlName="blockHeight"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.key" for="field_key">Key</label>
+                    <input type="text" class="form-control" name="key" id="field_key"
+                           formControlName="key"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.note" for="field_note">Note</label>
+                    <input type="text" class="form-control" name="note" id="field_note"
+                           formControlName="note"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.project" for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" formControlName="projectId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="projectOption.id" *ngFor="let projectOption of projects; trackBy: trackProjectById">{{projectOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="decentralizedcharityApp.transactions.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="userId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

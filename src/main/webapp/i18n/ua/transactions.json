@@ -1,0 +1,31 @@
+{
+  "decentralizedcharityApp": {
+    "transactions": {
+      "home": {
+        "title": "Transactions",
+        "createLabel": "Створити новий Transactions",
+        "createOrEditLabel": "Створити чи редагувати Transactions",
+        "notFound": "No Transactions found"
+      },
+      "created": "Новий Transactions створений з ідентифікатором {{ param }}",
+      "updated": "Transactions оновлений з ідентифікатором {{ param }}",
+      "deleted": "Transactions видалений з ідентифікатором {{ param }}",
+      "delete": {
+        "question": "Ви впевнені, що хочете видалити Transactions {{ id }}?"
+      },
+      "detail": {
+        "title": "Transactions"
+      },
+      "txid": "Txid",
+      "amount": "Amount",
+      "transactionType": "Transaction Type",
+      "createdDate": "Created Date",
+      "transactionStatus": "Transaction Status",
+      "blockHeight": "Block Height",
+      "key": "Key",
+      "note": "Note",
+      "project": "Project",
+      "user": "User"
+    }
+  }
+}
