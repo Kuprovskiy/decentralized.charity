@@ -55,6 +55,8 @@ public class ProjectCriteria implements Serializable, Criteria {
 
     private InstantFilter expiredDate;
 
+    private StringFilter description;
+
     private LongFilter userId;
 
     public ProjectCriteria(){
@@ -66,6 +68,7 @@ public class ProjectCriteria implements Serializable, Criteria {
         this.amount = other.amount == null ? null : other.amount.copy();
         this.projectType = other.projectType == null ? null : other.projectType.copy();
         this.expiredDate = other.expiredDate == null ? null : other.expiredDate.copy();
+        this.description = other.description == null ? null : other.description.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
     }
 
@@ -114,6 +117,14 @@ public class ProjectCriteria implements Serializable, Criteria {
         this.expiredDate = expiredDate;
     }
 
+    public StringFilter getDescription() {
+        return description;
+    }
+
+    public void setDescription(StringFilter description) {
+        this.description = description;
+    }
+
     public LongFilter getUserId() {
         return userId;
     }
@@ -138,6 +149,7 @@ public class ProjectCriteria implements Serializable, Criteria {
             Objects.equals(amount, that.amount) &&
             Objects.equals(projectType, that.projectType) &&
             Objects.equals(expiredDate, that.expiredDate) &&
+            Objects.equals(description, that.description) &&
             Objects.equals(userId, that.userId);
     }
 
@@ -149,6 +161,7 @@ public class ProjectCriteria implements Serializable, Criteria {
         amount,
         projectType,
         expiredDate,
+        description,
         userId
         );
     }
@@ -161,6 +174,7 @@ public class ProjectCriteria implements Serializable, Criteria {
                 (amount != null ? "amount=" + amount + ", " : "") +
                 (projectType != null ? "projectType=" + projectType + ", " : "") +
                 (expiredDate != null ? "expiredDate=" + expiredDate + ", " : "") +
+                (description != null ? "description=" + description + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
             "}";
     }

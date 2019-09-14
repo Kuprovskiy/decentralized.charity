@@ -22,6 +22,8 @@ public class ProjectDTO implements Serializable {
 
     private Instant expiredDate;
 
+    private String description;
+
 
     private Long userId;
 
@@ -65,6 +67,14 @@ public class ProjectDTO implements Serializable {
 
     public void setExpiredDate(Instant expiredDate) {
         this.expiredDate = expiredDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getUserId() {
@@ -112,6 +122,7 @@ public class ProjectDTO implements Serializable {
             ", amount=" + getAmount() +
             ", projectType='" + getProjectType() + "'" +
             ", expiredDate='" + getExpiredDate() + "'" +
+            ", description='" + getDescription() + "'" +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +
             "}";

@@ -57,6 +57,9 @@ public class ProjectResourceIT {
     private static final Instant UPDATED_EXPIRED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
     private static final Instant SMALLER_EXPIRED_DATE = Instant.ofEpochMilli(-1L);
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     @Autowired
     private ProjectRepository projectRepository;
 
@@ -111,7 +114,8 @@ public class ProjectResourceIT {
             .name(DEFAULT_NAME)
             .amount(DEFAULT_AMOUNT)
             .projectType(DEFAULT_PROJECT_TYPE)
-            .expiredDate(DEFAULT_EXPIRED_DATE);
+            .expiredDate(DEFAULT_EXPIRED_DATE)
+            .description(DEFAULT_DESCRIPTION);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -130,7 +134,8 @@ public class ProjectResourceIT {
             .name(UPDATED_NAME)
             .amount(UPDATED_AMOUNT)
             .projectType(UPDATED_PROJECT_TYPE)
-            .expiredDate(UPDATED_EXPIRED_DATE);
+            .expiredDate(UPDATED_EXPIRED_DATE)
+            .description(UPDATED_DESCRIPTION);
         // Add required entity
         User user = UserResourceIT.createEntity(em);
         em.persist(user);
@@ -164,6 +169,7 @@ public class ProjectResourceIT {
         assertThat(testProject.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testProject.getProjectType()).isEqualTo(DEFAULT_PROJECT_TYPE);
         assertThat(testProject.getExpiredDate()).isEqualTo(DEFAULT_EXPIRED_DATE);
+        assertThat(testProject.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
     }
 
     @Test
@@ -220,7 +226,8 @@ public class ProjectResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
             .andExpect(jsonPath("$.[*].projectType").value(hasItem(DEFAULT_PROJECT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].expiredDate").value(hasItem(DEFAULT_EXPIRED_DATE.toString())));
+            .andExpect(jsonPath("$.[*].expiredDate").value(hasItem(DEFAULT_EXPIRED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
     
     @Test
@@ -237,7 +244,8 @@ public class ProjectResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
             .andExpect(jsonPath("$.projectType").value(DEFAULT_PROJECT_TYPE.toString()))
-            .andExpect(jsonPath("$.expiredDate").value(DEFAULT_EXPIRED_DATE.toString()));
+            .andExpect(jsonPath("$.expiredDate").value(DEFAULT_EXPIRED_DATE.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()));
     }
 
     @Test
@@ -451,6 +459,45 @@ public class ProjectResourceIT {
 
     @Test
     @Transactional
+    public void getAllProjectsByDescriptionIsEqualToSomething() throws Exception {
+        // Initialize the database
+        projectRepository.saveAndFlush(project);
+
+        // Get all the projectList where description equals to DEFAULT_DESCRIPTION
+        defaultProjectShouldBeFound("description.equals=" + DEFAULT_DESCRIPTION);
+
+        // Get all the projectList where description equals to UPDATED_DESCRIPTION
+        defaultProjectShouldNotBeFound("description.equals=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllProjectsByDescriptionIsInShouldWork() throws Exception {
+        // Initialize the database
+        projectRepository.saveAndFlush(project);
+
+        // Get all the projectList where description in DEFAULT_DESCRIPTION or UPDATED_DESCRIPTION
+        defaultProjectShouldBeFound("description.in=" + DEFAULT_DESCRIPTION + "," + UPDATED_DESCRIPTION);
+
+        // Get all the projectList where description equals to UPDATED_DESCRIPTION
+        defaultProjectShouldNotBeFound("description.in=" + UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    public void getAllProjectsByDescriptionIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        projectRepository.saveAndFlush(project);
+
+        // Get all the projectList where description is not null
+        defaultProjectShouldBeFound("description.specified=true");
+
+        // Get all the projectList where description is null
+        defaultProjectShouldNotBeFound("description.specified=false");
+    }
+
+    @Test
+    @Transactional
     public void getAllProjectsByUserIsEqualToSomething() throws Exception {
         // Get already existing entity
         User user = project.getUser();
@@ -475,7 +522,8 @@ public class ProjectResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
             .andExpect(jsonPath("$.[*].projectType").value(hasItem(DEFAULT_PROJECT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].expiredDate").value(hasItem(DEFAULT_EXPIRED_DATE.toString())));
+            .andExpect(jsonPath("$.[*].expiredDate").value(hasItem(DEFAULT_EXPIRED_DATE.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
 
         // Check, that the count call also returns 1
         restProjectMockMvc.perform(get("/api/projects/count?sort=id,desc&" + filter))
@@ -526,7 +574,8 @@ public class ProjectResourceIT {
             .name(UPDATED_NAME)
             .amount(UPDATED_AMOUNT)
             .projectType(UPDATED_PROJECT_TYPE)
-            .expiredDate(UPDATED_EXPIRED_DATE);
+            .expiredDate(UPDATED_EXPIRED_DATE)
+            .description(UPDATED_DESCRIPTION);
         ProjectDTO projectDTO = projectMapper.toDto(updatedProject);
 
         restProjectMockMvc.perform(put("/api/projects")
@@ -542,6 +591,7 @@ public class ProjectResourceIT {
         assertThat(testProject.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testProject.getProjectType()).isEqualTo(UPDATED_PROJECT_TYPE);
         assertThat(testProject.getExpiredDate()).isEqualTo(UPDATED_EXPIRED_DATE);
+        assertThat(testProject.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
     }
 
     @Test

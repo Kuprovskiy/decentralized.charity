@@ -20,6 +20,7 @@
       "amount": "Amount",
       "projectType": "Project Type",
       "expiredDate": "Expired Date",
+      "description": "Description",
       "user": "User"
     }
   }

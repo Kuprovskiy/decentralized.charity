@@ -103,6 +103,9 @@ public class ProjectQueryService extends QueryService<Project> {
             if (criteria.getExpiredDate() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getExpiredDate(), Project_.expiredDate));
             }
+            if (criteria.getDescription() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getDescription(), Project_.description));
+            }
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildSpecification(criteria.getUserId(),
                     root -> root.join(Project_.user, JoinType.LEFT).get(User_.id)));

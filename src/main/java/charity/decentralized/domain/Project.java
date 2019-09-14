@@ -37,6 +37,9 @@ public class Project implements Serializable {
     @Column(name = "expired_date")
     private Instant expiredDate;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("projects")
@@ -103,6 +106,19 @@ public class Project implements Serializable {
         this.expiredDate = expiredDate;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Project description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public User getUser() {
         return user;
     }
@@ -141,6 +157,7 @@ public class Project implements Serializable {
             ", amount=" + getAmount() +
             ", projectType='" + getProjectType() + "'" +
             ", expiredDate='" + getExpiredDate() + "'" +
+            ", description='" + getDescription() + "'" +
             "}";
     }
 }

@@ -29,6 +29,7 @@ export class ProjectUpdateComponent implements OnInit {
     amount: [],
     projectType: [],
     expiredDate: [],
+    description: [],
     userId: [null, Validators.required]
   });
 
@@ -61,6 +62,7 @@ export class ProjectUpdateComponent implements OnInit {
       amount: project.amount,
       projectType: project.projectType,
       expiredDate: project.expiredDate != null ? project.expiredDate.format(DATE_TIME_FORMAT) : null,
+      description: project.description,
       userId: project.userId
     });
   }
@@ -88,6 +90,7 @@ export class ProjectUpdateComponent implements OnInit {
       projectType: this.editForm.get(['projectType']).value,
       expiredDate:
         this.editForm.get(['expiredDate']).value != null ? moment(this.editForm.get(['expiredDate']).value, DATE_TIME_FORMAT) : undefined,
+      description: this.editForm.get(['description']).value,
       userId: this.editForm.get(['userId']).value
     };
   }

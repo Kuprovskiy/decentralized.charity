@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Project(0, 'AAAAAAA', 0, ProjectType.DONATE, currentDate);
+      elemDefault = new Project(0, 'AAAAAAA', 0, ProjectType.DONATE, currentDate, 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -75,7 +75,8 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             amount: 1,
             projectType: 'BBBBBB',
-            expiredDate: currentDate.format(DATE_TIME_FORMAT)
+            expiredDate: currentDate.format(DATE_TIME_FORMAT),
+            description: 'BBBBBB'
           },
           elemDefault
         );
@@ -101,7 +102,8 @@ describe('Service Tests', () => {
             name: 'BBBBBB',
             amount: 1,
             projectType: 'BBBBBB',
-            expiredDate: currentDate.format(DATE_TIME_FORMAT)
+            expiredDate: currentDate.format(DATE_TIME_FORMAT),
+            description: 'BBBBBB'
           },
           elemDefault
         );

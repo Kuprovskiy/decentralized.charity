@@ -7,6 +7,7 @@ export interface IProject {
   amount?: number;
   projectType?: ProjectType;
   expiredDate?: Moment;
+  description?: string;
   userLogin?: string;
   userId?: number;
 }
@@ -18,6 +19,7 @@ export class Project implements IProject {
     public amount?: number,
     public projectType?: ProjectType,
     public expiredDate?: Moment,
+    public description?: string,
     public userLogin?: string,
     public userId?: number
   ) {}

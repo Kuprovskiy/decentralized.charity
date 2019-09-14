@@ -1,8 +1,9 @@
 <div>
     <div *ngFor="let project of projects ;trackBy: trackId" class="project-container">
         <div class="row justify-content-center">
-            <div class="col-8 project-left-side">
+            <div class="col-7 project-left-side">
                 <h2 class="project-name">{{project.name}}</h2>
+                <p>{{project.description}}</p>
             </div>
             <div class="col-4 project-right-side">
                 <h2>Donate</h2>
@@ -20,19 +21,20 @@
                         <button class="donate-submit-button">Donate Now</button>
                     </div>
                     <div>
-                        <button class="donate-details-link" [routerLink]="['/project', project.id, 'view' ]">Details</button>
+                        <a class="donate-details-link" [routerLink]="['/project', project.id, 'view' ]">Details</a>
                     </div>
                 </form>
             </div>
+            <div class="col-1"></div>
         </div>
     </div>
     <h2 id="page-heading">
         <!--<span jhiTranslate="decentralizedcharityApp.project.home.title">Projects</span>-->
         <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-project" [routerLink]="['/project/new']">-->
-            <!--<fa-icon [icon]="'plus'"></fa-icon>-->
-            <!--<span  jhiTranslate="decentralizedcharityApp.project.home.createLabel">-->
-            <!--Create a new Project-->
-            <!--</span>-->
+        <!--<fa-icon [icon]="'plus'"></fa-icon>-->
+        <!--<span  jhiTranslate="decentralizedcharityApp.project.home.createLabel">-->
+        <!--Create a new Project-->
+        <!--</span>-->
         <!--</button>-->
     </h2>
     <jhi-alert></jhi-alert>
@@ -44,13 +46,13 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="name"><span jhiTranslate="decentralizedcharityApp.project.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="amount"><span jhiTranslate="decentralizedcharityApp.project.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="projectType"><span jhiTranslate="decentralizedcharityApp.project.projectType">Project Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="expiredDate"><span jhiTranslate="decentralizedcharityApp.project.expiredDate">Expired Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="userLogin"><span jhiTranslate="decentralizedcharityApp.project.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
+                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="name"><span jhiTranslate="decentralizedcharityApp.project.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="amount"><span jhiTranslate="decentralizedcharityApp.project.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="projectType"><span jhiTranslate="decentralizedcharityApp.project.projectType">Project Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="expiredDate"><span jhiTranslate="decentralizedcharityApp.project.expiredDate">Expired Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="userLogin"><span jhiTranslate="decentralizedcharityApp.project.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

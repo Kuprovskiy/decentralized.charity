@@ -1,11 +1,11 @@
-id;name;amount;project_type;expired_date;user_id
-1;mobile Fish;77969;SUPPLY_CHAIN;2019-09-14T11:25:32;1
-2;FTP Savings Account;70807;DONATE;2019-09-13T17:50:48;2
-3;Electronics;99221;DONATE;2019-09-13T23:08:44;2
-4;web-readiness;29122;SUPPLY_CHAIN;2019-09-14T06:48:49;2
-5;Multi-channelled Licensed;61838;DONATE;2019-09-13T14:13:40;2
-6;Refined Rubber Chicken Table;6505;DONATE;2019-09-13T14:39:00;2
-7;envisioneer Music Public-key;24102;DONATE;2019-09-13T17:49:43;1
-8;Regional;25877;SUPPLY_CHAIN;2019-09-14T06:20:38;1
-9;sky blue Georgia;3131;SUPPLY_CHAIN;2019-09-13T15:35:07;2
-10;National Awesome sky blue;4522;SUPPLY_CHAIN;2019-09-13T17:56:08;2
+id;name;amount;project_type;expired_date;description;user_id
+1;mobile Fish;77969;SUPPLY_CHAIN;2019-09-14T12:06:03;Trace;1
+2;Metal deposit;5641;SUPPLY_CHAIN;2019-09-13T14:41:15;Money Market Account;2
+3;Grocery Home;52477;DONATE;2019-09-14T08:54:50;Licensed Savings Account;1
+4;Planner Canyon;85994;DONATE;2019-09-14T14:10:55;Usability South Dakota envisioneer;1
+5;Public-key;24102;SUPPLY_CHAIN;2019-09-13T18:30:14;Salad;1
+6;Tuna;75536;SUPPLY_CHAIN;2019-09-14T09:30:35;Georgia Industrial;2
+7;Views e-enable Communications;72727;SUPPLY_CHAIN;2019-09-13T15:25:57;navigating;2
+8;South Georgia and the South Sandwich Islands;58675;DONATE;2019-09-14T07:52:35;scalable;1
+9;Industrial;42340;DONATE;2019-09-14T09:43:41;monitor 1080p Checking Account;2
+10;deposit Internal;85003;DONATE;2019-09-14T05:36:02;Lempira;2
