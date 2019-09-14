@@ -22,6 +22,7 @@ export class ProjectDetailComponent implements OnInit {
   project: IProject;
   transactions: ITransactions[];
   links: any;
+  public readonly const = 'SUPPLY_CHAIN';
   totalItems: any;
   itemsPerPage: any;
   page: any;
@@ -29,12 +30,16 @@ export class ProjectDetailComponent implements OnInit {
   previousPage: any;
   reverse: any;
   routeData: any;
+  dataLng = [1, 2, 3];
   currentAccount: any;
   eventSubscriber: Subscription;
   public doughnutChartLabels: Label[] = ['Founded', 'Spend'];
   public doughnutChartData: MultiDataSet = [[]];
   public doughnutChartType: ChartType = 'doughnut';
 
+  title = 'My first AGM project';
+  lat = 51.678418;
+  lng = 7.809007;
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected transactionsService: TransactionsService,

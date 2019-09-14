@@ -43,7 +43,13 @@
                     [chartType]="doughnutChartType">
             </canvas>
         </div>
-        <div class="col-6 text-center"></div>
+        <div *ngIf="project.projectType === const" class="col-6 text-center">
+            <agm-map  [latitude]="lat" [longitude]="lng">
+                <agm-marker *ngFor="let device of dataLng, let i =index"
+                            [latitude]="lat+0.000033+i*4"
+                            [longitude]="lng+0.000022+i*4"></agm-marker>
+            </agm-map>
+        </div>
     </div>
 </div>
 <div>

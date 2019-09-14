@@ -10,11 +10,19 @@ import { projectRoute, projectPopupRoute } from './project.route';
 import { BrowserModule } from '@angular/platform-browser';
 import 'chart.js';
 import { ChartsModule } from 'ng2-charts';
+import { AgmCoreModule } from '@agm/core';
 
 const ENTITY_STATES = [...projectRoute, ...projectPopupRoute];
 
 @NgModule({
-  imports: [ChartsModule, DecentralizedcharitySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [
+    ChartsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCfmmb--lXAN8nfpYAk7a00pb7-ZHMEu10'
+    }),
+    DecentralizedcharitySharedModule,
+    RouterModule.forChild(ENTITY_STATES)
+  ],
   declarations: [
     ProjectComponent,
     ProjectDetailComponent,
