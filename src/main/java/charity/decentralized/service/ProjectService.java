@@ -1,5 +1,6 @@
 package charity.decentralized.service;
 
+import charity.decentralized.service.dto.AddressDTO;
 import charity.decentralized.service.dto.ProjectDTO;
 
 import org.springframework.data.domain.Page;
