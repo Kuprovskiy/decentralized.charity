@@ -4,12 +4,16 @@ import charity.decentralized.bloqly.BloqlyClient;
 import charity.decentralized.bloqly.KeyPair;
 import charity.decentralized.bloqly.transaction.SignedTransaction;
 import charity.decentralized.bloqly.transaction.Transaction;
+import charity.decentralized.domain.Project;
+import charity.decentralized.domain.enumeration.TransactionType;
+import charity.decentralized.repository.ProjectRepository;
 import charity.decentralized.service.TransactionsService;
 import charity.decentralized.domain.Transactions;
 import charity.decentralized.repository.TransactionsRepository;
 import charity.decentralized.service.dto.BloqlyTransactionsDTO;
 import charity.decentralized.service.dto.TransactionsDTO;
 import charity.decentralized.service.mapper.TransactionsMapper;
+import charity.decentralized.web.rest.errors.ProjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,11 +38,16 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     private final TransactionsRepository transactionsRepository;
 
+    private final ProjectRepository projectRepository;
+
     private final TransactionsMapper transactionsMapper;
 
-    public TransactionsServiceImpl(TransactionsRepository transactionsRepository, TransactionsMapper transactionsMapper) {
+    public TransactionsServiceImpl(TransactionsRepository transactionsRepository,
+                                   TransactionsMapper transactionsMapper,
+                                   ProjectRepository projectRepository) {
         this.transactionsRepository = transactionsRepository;
         this.transactionsMapper = transactionsMapper;
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -114,14 +123,25 @@ public class TransactionsServiceImpl implements TransactionsService {
             .map(transactionsMapper::toDto);
     }
 
-    /**
-     * Delete the transactions by id.
-     *
-     * @param id the id of the entity.
-     */
     @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Transactions : {}", id);
-        transactionsRepository.deleteById(id);
+    public List<Transactions> findAllDonateByProject(Long id) {
+        log.debug("Request to get all Transactions");
+
+        Project project = projectRepository.getOne(id);
+        if (project != null) {
+            throw new ProjectNotFoundException();
+        }
+        return transactionsRepository.findAllByProjectAndTransactionType(project, TransactionType.DONATE);
+    }
+
+    @Override
+    public List<Transactions> findAllSupplychainTransactionsByProject(Long id) {
+        log.debug("Request to get all Transactions");
+
+        Project project = projectRepository.getOne(id);
+        if (project != null) {
+            throw new ProjectNotFoundException();
+        }
+        return transactionsRepository.findAllByProjectAndTransactionType(project, TransactionType.SUPPLY_CHAIN);
     }
 }

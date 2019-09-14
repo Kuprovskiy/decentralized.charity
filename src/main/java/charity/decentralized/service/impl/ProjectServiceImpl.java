@@ -3,6 +3,7 @@ package charity.decentralized.service.impl;
 import charity.decentralized.service.ProjectService;
 import charity.decentralized.domain.Project;
 import charity.decentralized.repository.ProjectRepository;
+import charity.decentralized.service.dto.AddressDTO;
 import charity.decentralized.service.dto.ProjectDTO;
 import charity.decentralized.service.mapper.ProjectMapper;
 import org.slf4j.Logger;
@@ -12,6 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+import org.web3j.crypto.Wallet;
+import org.web3j.crypto.WalletFile;
 
 import java.util.Optional;
 
@@ -43,6 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDTO save(ProjectDTO projectDTO) {
         log.debug("Request to save Project : {}", projectDTO);
         Project project = projectMapper.toEntity(projectDTO);
+        AddressDTO addressDTO = createAccountCredentials(project.getId().toString());
         project = projectRepository.save(project);
         return projectMapper.toDto(project);
     }
@@ -85,5 +91,24 @@ public class ProjectServiceImpl implements ProjectService {
     public void delete(Long id) {
         log.debug("Request to delete Project : {}", id);
         projectRepository.deleteById(id);
+    }
+
+    // create new full eth address
+    private AddressDTO createAccountCredentials(String password) {
+        AddressDTO addressDTO = new AddressDTO();
+
+        try {
+            ECKeyPair keyPair = Keys.createEcKeyPair();
+            WalletFile wallet = Wallet.createStandard(password, keyPair);
+
+            addressDTO.setKey(keyPair.getPrivateKey().toString(16));
+            addressDTO.setAddress(wallet.getAddress());
+
+            System.out.println("Private key: " + keyPair.getPrivateKey().toString(16));
+            System.out.println("Account: " + wallet.getAddress());
+        } catch (Exception e) {
+            log.error("createAccountCredentials {}", e.getMessage());
+        }
+        return addressDTO;
     }
 }
