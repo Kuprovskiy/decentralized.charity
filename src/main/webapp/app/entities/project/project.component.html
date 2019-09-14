@@ -1,0 +1,102 @@
+<div>
+    <div *ngFor="let project of projects ;trackBy: trackId" class="project-container">
+        <div class="row justify-content-center">
+            <div class="col-8 project-left-side">
+                <h2 class="project-name">{{project.name}}</h2>
+            </div>
+            <div class="col-4 project-right-side">
+                <h2>Donate</h2>
+                <br>
+                <form action="">
+                    <div>
+                        <button class="donate-button">UAH 150</button>
+                        <button class="donate-button">UAH 250</button>
+                        <button class="donate-button">UAH 500</button>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Amount (UAH 150)" class="donate-input">
+                    </div>
+                    <div>
+                        <button class="donate-submit-button">Donate Now</button>
+                    </div>
+                    <div>
+                        <button class="donate-details-link" [routerLink]="['/project', project.id, 'view' ]">Details</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <h2 id="page-heading">
+        <!--<span jhiTranslate="decentralizedcharityApp.project.home.title">Projects</span>-->
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-project" [routerLink]="['/project/new']">-->
+            <!--<fa-icon [icon]="'plus'"></fa-icon>-->
+            <!--<span  jhiTranslate="decentralizedcharityApp.project.home.createLabel">-->
+            <!--Create a new Project-->
+            <!--</span>-->
+        <!--</button>-->
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="projects?.length === 0">
+        <span jhiTranslate="decentralizedcharityApp.project.home.notFound">No projects found</span>
+    </div>
+    <div class="table-responsive" *ngIf="projects?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span jhiTranslate="decentralizedcharityApp.project.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="amount"><span jhiTranslate="decentralizedcharityApp.project.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="projectType"><span jhiTranslate="decentralizedcharityApp.project.projectType">Project Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="expiredDate"><span jhiTranslate="decentralizedcharityApp.project.expiredDate">Expired Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userLogin"><span jhiTranslate="decentralizedcharityApp.project.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let project of projects ;trackBy: trackId">
+                <td><a [routerLink]="['/project', project.id, 'view' ]">{{project.id}}</a></td>
+                <td>{{project.name}}</td>
+                <td>{{project.amount}}</td>
+                <td jhiTranslate="{{'decentralizedcharityApp.ProjectType.' + project.projectType}}">{{project.projectType}}</td>
+                <td>{{project.expiredDate | date:'medium'}}</td>
+                <td>
+                    {{project.userLogin}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/project', project.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/project', project.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/project', { outlets: { popup: project.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="projects?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

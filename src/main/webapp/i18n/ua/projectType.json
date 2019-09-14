@@ -1,0 +1,9 @@
+{
+  "decentralizedcharityApp": {
+    "ProjectType": {
+      "null": "",
+      "DONATE": "DONATE",
+      "SUPPLY_CHAIN": "SUPPLY_CHAIN"
+    }
+  }
+}

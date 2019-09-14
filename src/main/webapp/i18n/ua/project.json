@@ -1,0 +1,26 @@
+{
+  "decentralizedcharityApp": {
+    "project": {
+      "home": {
+        "title": "Projects",
+        "createLabel": "Створити новий Project",
+        "createOrEditLabel": "Створити чи редагувати Project",
+        "notFound": "No Projects found"
+      },
+      "created": "Новий Project створений з ідентифікатором {{ param }}",
+      "updated": "Project оновлений з ідентифікатором {{ param }}",
+      "deleted": "Project видалений з ідентифікатором {{ param }}",
+      "delete": {
+        "question": "Ви впевнені, що хочете видалити Project {{ id }}?"
+      },
+      "detail": {
+        "title": "Project"
+      },
+      "name": "Name",
+      "amount": "Amount",
+      "projectType": "Project Type",
+      "expiredDate": "Expired Date",
+      "user": "User"
+    }
+  }
+}

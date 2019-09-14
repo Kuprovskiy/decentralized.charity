@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="project">
+            <h2><span jhiTranslate="decentralizedcharityApp.project.detail.title">Project</span> {{project.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="decentralizedcharityApp.project.name">Name</span></dt>
+                <dd>
+                    <span>{{project.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.project.amount">Amount</span></dt>
+                <dd>
+                    <span>{{project.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.project.projectType">Project Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'decentralizedcharityApp.ProjectType.' + project.projectType}}">{{project.projectType}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.project.expiredDate">Expired Date</span></dt>
+                <dd>
+                    <span>{{project.expiredDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="decentralizedcharityApp.project.user">User</span></dt>
+                <dd>
+                    {{project.userLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/project', project.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
