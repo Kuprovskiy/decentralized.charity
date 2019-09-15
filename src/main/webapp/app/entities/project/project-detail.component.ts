@@ -104,24 +104,6 @@ export class ProjectDetailComponent implements OnInit {
         });
         this.paginateTransactions(res.body, res.headers), (res: HttpErrorResponse) => this.onError(res.message);
       });
-    // this.transactionsService
-    //   .query2(
-    //     {
-    //       page: this.page,
-    //       size: this.itemsPerPage,
-    //       sort: this.sort()
-    //     },
-    //     'api/project/' + this.project.id + '/supplychain'
-    //   )
-    //   .subscribe(
-    //     (res: HttpResponse<ITransactions[]>) => {
-    //       res.body.map(data => {
-    //         this.location.latitude.push(data.latitude);
-    //         this.location.longitude.push(data.longitude);
-    //         console.log(this.location);
-    //       });},
-    //     (res: HttpErrorResponse) => this.onError(res.message)
-    //   );
   }
 
   protected paginateTransactions(data: ITransactions[], headers: HttpHeaders) {

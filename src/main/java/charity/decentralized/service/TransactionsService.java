@@ -1,6 +1,7 @@
 package charity.decentralized.service;
 
 import charity.decentralized.domain.Transactions;
+import charity.decentralized.domain.enumeration.TransactionType;
 import charity.decentralized.service.dto.BloqlyTransactionsDTO;
 import charity.decentralized.service.dto.TransactionsDTO;
 
@@ -40,7 +41,7 @@ public interface TransactionsService {
      */
     Optional<TransactionsDTO> findOne(Long id);
 
-    String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO);
+    String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO, TransactionType transactionType);
 
     Page<TransactionsDTO> findAllDonateByProject(Pageable pageable, Long id);
 

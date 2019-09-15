@@ -94,7 +94,7 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
-    public String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO) {
+    public String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO, TransactionType transactionType) {
 
         Project project = projectRepository.getOne(bloqlyTransactionsDTO.getProjectId());
         if (project == null) {
@@ -134,9 +134,10 @@ public class TransactionsServiceImpl implements TransactionsService {
         transactions.setLongitude(bloqlyTransactionsDTO.getLongitude());
         transactions.setLatitude(bloqlyTransactionsDTO.getLatitude());
         transactions.setTxid(thHash);
-        transactions.setTransactionType(TransactionType.SUPPLY_CHAIN);
+        transactions.setTransactionType(transactionType);
         transactions.setProject(project);
         transactions.setCreatedDate(Instant.now());
+        transactions.setAmount(bloqlyTransactionsDTO.getAmount());
 
         transactionsRepository.save(transactions);
 

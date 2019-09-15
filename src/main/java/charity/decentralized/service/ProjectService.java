@@ -1,6 +1,7 @@
 package charity.decentralized.service;
 
 import charity.decentralized.service.dto.AddressDTO;
+import charity.decentralized.service.dto.PayDTO;
 import charity.decentralized.service.dto.ProjectDTO;
 
 import org.springframework.data.domain.Page;
@@ -44,4 +45,6 @@ public interface ProjectService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    void pay(PayDTO payDTO, Long id);
 }

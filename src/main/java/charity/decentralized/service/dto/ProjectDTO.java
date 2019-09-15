@@ -24,6 +24,12 @@ public class ProjectDTO implements Serializable {
 
     private String description;
 
+    private String privateKey;
+
+    private String address;
+
+    private String coverImage;
+
 
     private Long userId;
 
@@ -91,6 +97,30 @@ public class ProjectDTO implements Serializable {
 
     public void setUserLogin(String userLogin) {
         this.userLogin = userLogin;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
     }
 
     @Override

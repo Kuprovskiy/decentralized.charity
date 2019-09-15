@@ -1,6 +1,7 @@
 package charity.decentralized.web.rest;
 
 import charity.decentralized.domain.Transactions;
+import charity.decentralized.domain.enumeration.TransactionType;
 import charity.decentralized.service.TransactionsService;
 import charity.decentralized.service.dto.BloqlyTransactionsDTO;
 import charity.decentralized.web.rest.errors.BadRequestAlertException;
@@ -147,7 +148,7 @@ public class TransactionsResource {
     public ResponseEntity createTransactions(@Valid @RequestBody BloqlyTransactionsDTO bloqlyTransactionsDTO) throws URISyntaxException {
         log.debug("REST request to save Transactions : {}", bloqlyTransactionsDTO);
 
-        String txHash = transactionsService.saveToBlockly(bloqlyTransactionsDTO);
+        String txHash = transactionsService.saveToBlockly(bloqlyTransactionsDTO, TransactionType.SUPPLY_CHAIN);
         return ResponseEntity.ok().body(txHash);
     }
 

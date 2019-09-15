@@ -18,6 +18,8 @@ public class BloqlyTransactionsDTO implements Serializable {
 
     private BigDecimal temperature;
 
+    private BigDecimal amount;
+
     @NotNull
     private Long projectId;
 
@@ -60,6 +62,14 @@ public class BloqlyTransactionsDTO implements Serializable {
 
     public void setProjectId(Long projectId) {
         this.projectId = projectId;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
     @Override

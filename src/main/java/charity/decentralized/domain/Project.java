@@ -1,4 +1,5 @@
 package charity.decentralized.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -44,6 +45,16 @@ public class Project implements Serializable {
     @NotNull
     @JsonIgnoreProperties("projects")
     private User user;
+
+    @JsonIgnore
+    @Column(name = "private_key")
+    private String privateKey;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "cover_img")
+    private String coverImage;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -131,6 +142,35 @@ public class Project implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

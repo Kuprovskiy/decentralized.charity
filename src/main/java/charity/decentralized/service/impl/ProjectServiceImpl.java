@@ -1,11 +1,16 @@
 package charity.decentralized.service.impl;
 
+import charity.decentralized.domain.enumeration.TransactionType;
 import charity.decentralized.service.ProjectService;
 import charity.decentralized.domain.Project;
 import charity.decentralized.repository.ProjectRepository;
+import charity.decentralized.service.TransactionsService;
 import charity.decentralized.service.dto.AddressDTO;
+import charity.decentralized.service.dto.BloqlyTransactionsDTO;
+import charity.decentralized.service.dto.PayDTO;
 import charity.decentralized.service.dto.ProjectDTO;
 import charity.decentralized.service.mapper.ProjectMapper;
+import charity.decentralized.web.rest.errors.ProjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +38,14 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectMapper projectMapper;
 
-    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper) {
+    private final TransactionsService transactionsService;
+
+    public ProjectServiceImpl(ProjectRepository projectRepository,
+                              ProjectMapper projectMapper,
+                              TransactionsService transactionsService) {
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
+        this.transactionsService = transactionsService;
     }
 
     /**
@@ -49,6 +59,8 @@ public class ProjectServiceImpl implements ProjectService {
         log.debug("Request to save Project : {}", projectDTO);
         Project project = projectMapper.toEntity(projectDTO);
         AddressDTO addressDTO = createAccountCredentials(project.getId().toString());
+        project.setPrivateKey(addressDTO.getKey());
+        project.setAddress(addressDTO.getAddress());
         project = projectRepository.save(project);
         return projectMapper.toDto(project);
     }
@@ -110,5 +122,13 @@ public class ProjectServiceImpl implements ProjectService {
             log.error("createAccountCredentials {}", e.getMessage());
         }
         return addressDTO;
+    }
+
+    @Override
+    public void pay(PayDTO payDTO, Long id) {
+        BloqlyTransactionsDTO bloqlyTransactionsDTO = new BloqlyTransactionsDTO();
+        bloqlyTransactionsDTO.setAmount(payDTO.getAmount());
+        bloqlyTransactionsDTO.setProjectId(id);
+        transactionsService.saveToBlockly(bloqlyTransactionsDTO, TransactionType.SUPPLY_CHAIN);
     }
 }

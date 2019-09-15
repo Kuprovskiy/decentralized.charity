@@ -83,6 +83,13 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0.25rem 2.5rem;
 }
 
+.project-name,
+.project-description {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 8px;
+  width: 330px;
+}
+
 .home_container {
   background-image: url(https://www.unicef.org/sites/default/files/styles/media_banner/public/2018-02/01_HP_UNI158415_Bluewash_WEB.jpg?itok=PU_hg3j5);
   background-repeat: no-repeat;

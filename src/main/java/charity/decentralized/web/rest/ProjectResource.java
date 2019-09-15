@@ -3,6 +3,7 @@ package charity.decentralized.web.rest;
 import charity.decentralized.service.ProjectQueryService;
 import charity.decentralized.service.ProjectService;
 import charity.decentralized.service.dto.BalanceDTO;
+import charity.decentralized.service.dto.PayDTO;
 import charity.decentralized.service.dto.ProjectCriteria;
 import charity.decentralized.service.dto.ProjectDTO;
 import charity.decentralized.service.impl.EthServiceImpl;
@@ -160,5 +161,20 @@ public class ProjectResource {
 
         BalanceDTO balance = new BalanceDTO(ethServiceImpl.balanceOf(projectDTO.toString()));//TODO
         return ResponseEntity.ok().body(balance);
+    }
+
+    /**
+     * {@code POST  /projects} : Create a new project.
+     *
+     * @param payDTO the projectDTO to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new projectDTO, or with status {@code 400 (Bad Request)} if the project has already an ID.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/projects/{id}/pay")
+    public ResponseEntity<Void> payForProject(@Valid @RequestBody PayDTO payDTO, @PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to pay for Project : {}", payDTO);
+
+        projectService.pay(payDTO, id);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }
