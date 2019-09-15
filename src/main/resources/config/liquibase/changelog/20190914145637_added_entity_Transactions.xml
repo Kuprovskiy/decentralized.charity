@@ -49,6 +49,22 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="longitude" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="latitude" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="humidity" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="temperature" type="decimal(21,2)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="project_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -90,6 +106,10 @@
             <column name="block_height" type="numeric"/>
             <column name="jhi_key" type="string"/>
             <column name="note" type="string"/>
+            <column name="longitude" type="numeric"/>
+            <column name="latitude" type="numeric"/>
+            <column name="humidity" type="numeric"/>
+            <column name="temperature" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Transactions(0, 'AAAAAAA', 0, TransactionType.DONATE, currentDate, false, 0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Transactions(0, 'AAAAAAA', 0, TransactionType.DONATE, currentDate, false, 0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -79,7 +79,11 @@ describe('Service Tests', () => {
             transactionStatus: true,
             blockHeight: 1,
             key: 'BBBBBB',
-            note: 'BBBBBB'
+            note: 'BBBBBB',
+            longitude: 1,
+            latitude: 1,
+            humidity: 1,
+            temperature: 1
           },
           elemDefault
         );
@@ -109,7 +113,11 @@ describe('Service Tests', () => {
             transactionStatus: true,
             blockHeight: 1,
             key: 'BBBBBB',
-            note: 'BBBBBB'
+            note: 'BBBBBB',
+            longitude: 1,
+            latitude: 1,
+            humidity: 1,
+            temperature: 1
           },
           elemDefault
         );

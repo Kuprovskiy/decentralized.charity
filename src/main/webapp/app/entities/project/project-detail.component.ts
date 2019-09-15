@@ -33,6 +33,10 @@ export class ProjectDetailComponent implements OnInit {
   dataLng = [1, 2, 3];
   currentAccount: any;
   eventSubscriber: Subscription;
+  public location = {
+    latitude: [],
+    longitude: []
+  };
   public doughnutChartLabels: Label[] = ['Founded', 'Spend'];
   public doughnutChartData: MultiDataSet = [[]];
   public doughnutChartType: ChartType = 'doughnut';
@@ -89,10 +93,35 @@ export class ProjectDetailComponent implements OnInit {
         },
         'api/project/' + this.project.id + '/transactions'
       )
-      .subscribe(
-        (res: HttpResponse<ITransactions[]>) => this.paginateTransactions(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: HttpResponse<ITransactions[]>) => {
+        console.log(res);
+        res.body.forEach(data => {
+          if (data && data.longitude && data.latitude) {
+            this.location.latitude.push(data.latitude);
+            this.location.longitude.push(data.longitude);
+            console.log(this.location);
+          }
+        });
+        this.paginateTransactions(res.body, res.headers), (res: HttpErrorResponse) => this.onError(res.message);
+      });
+    // this.transactionsService
+    //   .query2(
+    //     {
+    //       page: this.page,
+    //       size: this.itemsPerPage,
+    //       sort: this.sort()
+    //     },
+    //     'api/project/' + this.project.id + '/supplychain'
+    //   )
+    //   .subscribe(
+    //     (res: HttpResponse<ITransactions[]>) => {
+    //       res.body.map(data => {
+    //         this.location.latitude.push(data.latitude);
+    //         this.location.longitude.push(data.longitude);
+    //         console.log(this.location);
+    //       });},
+    //     (res: HttpErrorResponse) => this.onError(res.message)
+    //   );
   }
 
   protected paginateTransactions(data: ITransactions[], headers: HttpHeaders) {

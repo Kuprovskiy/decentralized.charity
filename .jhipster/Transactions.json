@@ -7,7 +7,8 @@
             "otherEntityName": "project",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [],
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "otherEntityRelationshipName": "transactions"
         },
         {
             "relationshipName": "user",
@@ -57,6 +58,22 @@
         {
             "fieldName": "note",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "humidity",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "temperature",
+            "fieldType": "BigDecimal"
         }
     ],
     "changelogDate": "20190914145637",

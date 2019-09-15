@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -110,22 +111,6 @@ public class TransactionsResource {
     }
 
     /**
-     * {@code GET  /transactions} : get all the transactions.
-     *
-
-     * @param pageable the pagination information.
-
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of transactions in body.
-     */
-    @GetMapping("/project/{projectId}/transactions")
-    public ResponseEntity<List<TransactionsDTO>> getAllTransactionsPerProject(Pageable pageable, @PathVariable Long projectId) {
-        log.debug("REST request to get Transactions by criteria: {}");
-        Page<TransactionsDTO> page = transactionsQueryService.findByCriteriaPerProject(pageable, projectId);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-
-    /**
     * {@code GET  /transactions/count} : count all the transactions.
     *
     * @param criteria the criteria which the requested entities should match.
@@ -150,13 +135,14 @@ public class TransactionsResource {
         return ResponseUtil.wrapOrNotFound(transactionsDTO);
     }
 
-    /**
-     * {@code POST  /transactions} : Create a new transactions in Bloqly blockchain.
-     *
-     * @param bloqlyTransactionsDTO the bloqlyTransactionsDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new transactionsDTO, or with status {@code 400 (Bad Request)} if the transactions has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
+    @GetMapping("/project/{projectId}/transactions")
+    public ResponseEntity<List<TransactionsDTO>> getAllTransactionsPerProject(Pageable pageable, @PathVariable Long projectId) {
+        log.debug("REST request to get Transactions by criteria: {}");
+        Page<TransactionsDTO> page = transactionsQueryService.findByCriteriaPerProject(pageable, projectId);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     @PostMapping("/bloqly/transactions")
     public ResponseEntity createTransactions(@Valid @RequestBody BloqlyTransactionsDTO bloqlyTransactionsDTO) throws URISyntaxException {
         log.debug("REST request to save Transactions : {}", bloqlyTransactionsDTO);
@@ -166,16 +152,20 @@ public class TransactionsResource {
     }
 
     @GetMapping("/transactions/{id}/donate")
-    public ResponseEntity getTransactionLocations(@PathVariable Long id) {
+    public ResponseEntity<List<TransactionsDTO>> getTransactionLocations(Pageable pageable, @PathVariable Long id) {
         log.debug("REST request to get Transactions : {}", id);
-        List<Transactions> transactions = transactionsService.findAllDonateByProject(id);
-        return ResponseEntity.ok().body(transactions);
+
+        Page<TransactionsDTO> page = transactionsService.findAllDonateByProject(pageable, id);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
     @GetMapping("/transactions/{id}/supplychain")
-    public ResponseEntity getTransactionSupplychain(@PathVariable Long id) {
+    public ResponseEntity<List<TransactionsDTO>> getTransactionSupplychain(Pageable pageable, @PathVariable Long id) {
         log.debug("REST request to get Transactions : {}", id);
-        List<Transactions> transactions = transactionsService.findAllSupplychainTransactionsByProject(id);
-        return ResponseEntity.ok().body(transactions);
+
+        Page<TransactionsDTO> page = transactionsService.findAllSupplychainTransactionsByProject(pageable, id);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

@@ -88,6 +88,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 30%;
+  min-height: 430px;
 }
 
 .home_container span {
@@ -96,13 +97,13 @@
   background: rgba(255, 255, 255, 0.9);
   font-weight: 500;
   font-size: 38px;
-  padding: 5px 8px;
+  padding: 2px 8px;
 }
 .home_container p {
   background: rgba(255, 255, 255, 0.9);
   margin: 10px 30px;
   font-size: 16px;
-  padding: -5px 8px;
+  padding: 5px 30px;
   max-width: 450px;
 }
 .card {

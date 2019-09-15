@@ -37,6 +37,10 @@ export class TransactionsUpdateComponent implements OnInit {
     blockHeight: [],
     key: [],
     note: [],
+    longitude: [],
+    latitude: [],
+    humidity: [],
+    temperature: [],
     projectId: [],
     userId: []
   });
@@ -82,6 +86,10 @@ export class TransactionsUpdateComponent implements OnInit {
       blockHeight: transactions.blockHeight,
       key: transactions.key,
       note: transactions.note,
+      longitude: transactions.longitude,
+      latitude: transactions.latitude,
+      humidity: transactions.humidity,
+      temperature: transactions.temperature,
       projectId: transactions.projectId,
       userId: transactions.userId
     });
@@ -114,6 +122,10 @@ export class TransactionsUpdateComponent implements OnInit {
       blockHeight: this.editForm.get(['blockHeight']).value,
       key: this.editForm.get(['key']).value,
       note: this.editForm.get(['note']).value,
+      longitude: this.editForm.get(['longitude']).value,
+      latitude: this.editForm.get(['latitude']).value,
+      humidity: this.editForm.get(['humidity']).value,
+      temperature: this.editForm.get(['temperature']).value,
       projectId: this.editForm.get(['projectId']).value,
       userId: this.editForm.get(['userId']).value
     };

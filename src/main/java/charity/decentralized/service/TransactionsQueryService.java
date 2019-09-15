@@ -2,12 +2,10 @@ package charity.decentralized.service;
 
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.JoinType;
 
 import charity.decentralized.repository.ProjectRepository;
 import charity.decentralized.web.rest.errors.ProjectNotFoundException;
-import io.github.jhipster.service.filter.LongFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,9 +37,9 @@ public class TransactionsQueryService extends QueryService<Transactions> {
 
     private final TransactionsRepository transactionsRepository;
 
-    private final ProjectRepository projectRepository;
-
     private final TransactionsMapper transactionsMapper;
+
+    private final ProjectRepository projectRepository;
 
     public TransactionsQueryService(TransactionsRepository transactionsRepository,
                                     TransactionsMapper transactionsMapper,
@@ -74,20 +72,6 @@ public class TransactionsQueryService extends QueryService<Transactions> {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Transactions> specification = createSpecification(criteria);
         return transactionsRepository.findAll(specification, page)
-            .map(transactionsMapper::toDto);
-    }
-
-    @Transactional(readOnly = true)
-    public Page<TransactionsDTO> findByCriteriaPerProject(Pageable page, Long projectId) {
-        log.debug("find by criteria : {}, page: {}", page);
-
-//        final Specification<Transactions> specification = createSpecification(criteria);
-
-        Project project = projectRepository.findById(projectId).orElseThrow(
-            () -> new ProjectNotFoundException()
-        );
-
-        return transactionsRepository.findAllByProject(page, project)
             .map(transactionsMapper::toDto);
     }
 
@@ -148,5 +132,17 @@ public class TransactionsQueryService extends QueryService<Transactions> {
             }
         }
         return specification;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<TransactionsDTO> findByCriteriaPerProject(Pageable page, Long projectId) {
+        log.debug("find by criteria : {}, page: {}", page);
+
+        Project project = projectRepository.findById(projectId).orElseThrow(
+            () -> new ProjectNotFoundException()
+        );
+
+        return transactionsRepository.findAllByProject(page, project)
+            .map(transactionsMapper::toDto);
     }
 }

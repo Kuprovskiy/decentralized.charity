@@ -50,7 +50,20 @@ public class Transactions implements Serializable {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "longitude", precision = 21, scale = 2)
+    private BigDecimal longitude;
+
+    @Column(name = "latitude", precision = 21, scale = 2)
+    private BigDecimal latitude;
+
+    @Column(name = "humidity", precision = 21, scale = 2)
+    private BigDecimal humidity;
+
+    @Column(name = "temperature", precision = 21, scale = 2)
+    private BigDecimal temperature;
+
     @ManyToOne
+    @JsonIgnoreProperties("transactions")
     private Project project;
 
     @ManyToOne
@@ -170,6 +183,58 @@ public class Transactions implements Serializable {
         this.note = note;
     }
 
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public Transactions longitude(BigDecimal longitude) {
+        this.longitude = longitude;
+        return this;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public Transactions latitude(BigDecimal latitude) {
+        this.latitude = latitude;
+        return this;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getHumidity() {
+        return humidity;
+    }
+
+    public Transactions humidity(BigDecimal humidity) {
+        this.humidity = humidity;
+        return this;
+    }
+
+    public void setHumidity(BigDecimal humidity) {
+        this.humidity = humidity;
+    }
+
+    public BigDecimal getTemperature() {
+        return temperature;
+    }
+
+    public Transactions temperature(BigDecimal temperature) {
+        this.temperature = temperature;
+        return this;
+    }
+
+    public void setTemperature(BigDecimal temperature) {
+        this.temperature = temperature;
+    }
+
     public Project getProject() {
         return project;
     }
@@ -225,6 +290,10 @@ public class Transactions implements Serializable {
             ", blockHeight=" + getBlockHeight() +
             ", key='" + getKey() + "'" +
             ", note='" + getNote() + "'" +
+            ", longitude=" + getLongitude() +
+            ", latitude=" + getLatitude() +
+            ", humidity=" + getHumidity() +
+            ", temperature=" + getTemperature() +
             "}";
     }
 }

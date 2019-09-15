@@ -15,8 +15,6 @@ import java.util.Optional;
  */
 public interface TransactionsService {
 
-    String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO);
-
     /**
      * Save a transactions.
      *
@@ -42,7 +40,9 @@ public interface TransactionsService {
      */
     Optional<TransactionsDTO> findOne(Long id);
 
-    List<Transactions> findAllDonateByProject(Long id);
+    String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO);
 
-    List<Transactions> findAllSupplychainTransactionsByProject(Long id);
+    Page<TransactionsDTO> findAllDonateByProject(Pageable pageable, Long id);
+
+    Page<TransactionsDTO> findAllSupplychainTransactionsByProject(Pageable pageable, Long id);
 }

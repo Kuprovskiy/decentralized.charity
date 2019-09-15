@@ -1,11 +1,11 @@
-id;txid;amount;transaction_type;created_date;transaction_status;block_height;jhi_key;note
-1;mobile Fish;77969;WITHDRAW;2019-09-14T12:32:39;false;45924;seamless Metal deposit;Producer
-2;Implementation Electronics Officer;61748;DONATE;2019-09-14T14:46:26;false;2306;Namibia;Steel zero administration
-3;Multi-channelled Licensed;61838;DONATE;2019-09-13T15:20:47;true;46676;HDD;Table Small Frozen Sausages Planner
-4;envisioneer Music Public-key;24102;WITHDRAW;2019-09-13T18:56:49;false;17336;incentivize Tuna copy;Costa Rica Mayotte
-5;Industrial;84228;DONATE;2019-09-13T21:29:21;true;32654;Georgia;Tasty Plastic Pizza scale
-6;South Georgia and the South Sandwich Islands;58675;SUPPLY_CHAIN;2019-09-14T08:19:11;false;29627;Car Industrial deliverables;orange Books
-7;magenta monitor 1080p;60595;WITHDRAW;2019-09-13T23:19:04;false;91495;generating Highway Ergonomic;moratorium moratorium
-8;New York tangible Mississippi;38292;DONATE;2019-09-13T18:34:11;true;72172;Robust Networked;Poland
-9;Small partnerships;20171;DONATE;2019-09-14T03:32:05;false;56327;European Unit of Account 9(E.U.A.-9) Concrete;relationships override
-10;Brand;59886;SUPPLY_CHAIN;2019-09-13T17:48:45;true;62435;modular Refined Squares;maroon
+id;txid;amount;transaction_type;created_date;transaction_status;block_height;jhi_key;note;longitude;latitude;humidity;temperature
+1;mobile Fish;77969;SUPPLY_CHAIN;2019-09-14T20:14:19;false;45924;seamless Metal deposit;Producer;83244;93855;21233;77
+2;Officer;61748;WITHDRAW;2019-09-14T22:28:06;false;2306;Namibia;Steel zero administration;36636;23277;45606;9060
+3;Savings Account syndicate Planner;46676;SUPPLY_CHAIN;2019-09-14T06:18:39;false;45049;Automotive;Planner cross-platform access;9767;23089;68423;24102
+4;Bahamian Dollar Investment Account;83319;DONATE;2019-09-14T13:15:10;false;18223;copy convergence;Mayotte;18485;3131;96958;84228
+5;Views e-enable Communications;72727;SUPPLY_CHAIN;2019-09-13T23:34:13;false;84453;compress South Georgia and the South Sandwich Islands;compelling mission-critical;54269;27599;14092;29627
+6;Car Industrial deliverables;39488;DONATE;2019-09-14T22:18:00;true;19884;monitor 1080p Checking Account;world-class Frozen IB;62329;44945;33089;9541
+7;envisioneer;66884;DONATE;2019-09-14T08:26:49;true;27472;Mississippi embrace Developer;synthesize Idaho compress;49379;4043;52273;71066
+8;Small partnerships;20171;DONATE;2019-09-14T11:13:45;false;56327;European Unit of Account 9(E.U.A.-9) Concrete;relationships override;22879;94285;7697;59886
+9;Chilean Peso Unidades de fomento;88046;DONATE;2019-09-14T11:40:53;true;21844;e-business;Ghana back-end National;31800;90682;11005;27213
+10;withdrawal;52;DONATE;2019-09-14T09:49:12;false;48482;Bahamian Dollar;24/7;94290;16829;32320;21876

@@ -32,8 +32,7 @@
 <div>
     <br><br><br>
     <h1>
-        <fa-icon [icon]="'th-large'"></fa-icon>
-        Donates | Spends
+        <fa-icon [icon]="'th-large'"></fa-icon>Donates | Spends
     </h1>
     <div class="row">
         <div class="col-6 text-center">
@@ -44,18 +43,22 @@
             </canvas>
         </div>
         <div *ngIf="project.projectType === const" class="col-6 text-center">
-            <agm-map  [latitude]="lat" [longitude]="lng">
-                <agm-marker *ngFor="let device of dataLng, let i =index"
-                            [latitude]="lat+0.000033+i*4"
-                            [longitude]="lng+0.000022+i*4"></agm-marker>
+            <agm-map  [latitude]="location.latitude[0]" [longitude]="location.longitude[0]">
+                <agm-marker *ngFor="let device of location.latitude, let i =index"
+                            [latitude]="device"
+                            [longitude]="location.longitude[i]"></agm-marker>
             </agm-map>
         </div>
     </div>
 </div>
 <div>
+    <br><br><br>
+    <h1>
+        <fa-icon [icon]="'th-large'"></fa-icon>Transactions
+    </h1>
     <div class="row">
-        <br><br><br>
-        <h1>Transactions</h1>
+        <!--<br><br><br>-->
+        <!--<h1></h1>-->
         <div class="col-12">
             <div class="table-responsive" *ngIf="transactions?.length > 0">
                 <table class="table table-striped" aria-describedby="page-heading">
@@ -73,7 +76,9 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let transactions of transactions ;trackBy: trackId">
-                        <td>{{transactions.txid}}</td>
+                        <td>
+                            <a [href]="'http://localhost:8082/#/events/hash/'+transactions.txid" target="_blank">{{transactions.txid}}</a>
+                        </td>
                         <td>{{transactions.amount}}</td>
                         <td jhiTranslate="{{'decentralizedcharityApp.TransactionType.' + transactions.transactionType}}">{{transactions.transactionType}}</td>
                         <td>{{transactions.createdDate | date:'medium'}}</td>

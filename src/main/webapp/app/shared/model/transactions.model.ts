@@ -11,6 +11,10 @@ export interface ITransactions {
   blockHeight?: number;
   key?: string;
   note?: string;
+  longitude?: number;
+  latitude?: number;
+  humidity?: number;
+  temperature?: number;
   projectId?: number;
   userLogin?: string;
   userId?: number;
@@ -27,6 +31,10 @@ export class Transactions implements ITransactions {
     public blockHeight?: number,
     public key?: string,
     public note?: string,
+    public longitude?: number,
+    public latitude?: number,
+    public humidity?: number,
+    public temperature?: number,
     public projectId?: number,
     public userLogin?: string,
     public userId?: number

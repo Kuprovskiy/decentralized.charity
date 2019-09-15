@@ -63,6 +63,14 @@ public class TransactionsCriteria implements Serializable, Criteria {
 
     private StringFilter note;
 
+    private BigDecimalFilter longitude;
+
+    private BigDecimalFilter latitude;
+
+    private BigDecimalFilter humidity;
+
+    private BigDecimalFilter temperature;
+
     private LongFilter projectId;
 
     private LongFilter userId;
@@ -80,6 +88,10 @@ public class TransactionsCriteria implements Serializable, Criteria {
         this.blockHeight = other.blockHeight == null ? null : other.blockHeight.copy();
         this.key = other.key == null ? null : other.key.copy();
         this.note = other.note == null ? null : other.note.copy();
+        this.longitude = other.longitude == null ? null : other.longitude.copy();
+        this.latitude = other.latitude == null ? null : other.latitude.copy();
+        this.humidity = other.humidity == null ? null : other.humidity.copy();
+        this.temperature = other.temperature == null ? null : other.temperature.copy();
         this.projectId = other.projectId == null ? null : other.projectId.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
     }
@@ -161,6 +173,38 @@ public class TransactionsCriteria implements Serializable, Criteria {
         this.note = note;
     }
 
+    public BigDecimalFilter getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimalFilter longitude) {
+        this.longitude = longitude;
+    }
+
+    public BigDecimalFilter getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimalFilter latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimalFilter getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(BigDecimalFilter humidity) {
+        this.humidity = humidity;
+    }
+
+    public BigDecimalFilter getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(BigDecimalFilter temperature) {
+        this.temperature = temperature;
+    }
+
     public LongFilter getProjectId() {
         return projectId;
     }
@@ -197,6 +241,10 @@ public class TransactionsCriteria implements Serializable, Criteria {
             Objects.equals(blockHeight, that.blockHeight) &&
             Objects.equals(key, that.key) &&
             Objects.equals(note, that.note) &&
+            Objects.equals(longitude, that.longitude) &&
+            Objects.equals(latitude, that.latitude) &&
+            Objects.equals(humidity, that.humidity) &&
+            Objects.equals(temperature, that.temperature) &&
             Objects.equals(projectId, that.projectId) &&
             Objects.equals(userId, that.userId);
     }
@@ -213,6 +261,10 @@ public class TransactionsCriteria implements Serializable, Criteria {
         blockHeight,
         key,
         note,
+        longitude,
+        latitude,
+        humidity,
+        temperature,
         projectId,
         userId
         );
@@ -230,6 +282,10 @@ public class TransactionsCriteria implements Serializable, Criteria {
                 (blockHeight != null ? "blockHeight=" + blockHeight + ", " : "") +
                 (key != null ? "key=" + key + ", " : "") +
                 (note != null ? "note=" + note + ", " : "") +
+                (longitude != null ? "longitude=" + longitude + ", " : "") +
+                (latitude != null ? "latitude=" + latitude + ", " : "") +
+                (humidity != null ? "humidity=" + humidity + ", " : "") +
+                (temperature != null ? "temperature=" + temperature + ", " : "") +
                 (projectId != null ? "projectId=" + projectId + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
             "}";

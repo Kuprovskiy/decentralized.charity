@@ -31,6 +31,14 @@ public class TransactionsDTO implements Serializable {
 
     private String note;
 
+    private BigDecimal longitude;
+
+    private BigDecimal latitude;
+
+    private BigDecimal humidity;
+
+    private BigDecimal temperature;
+
 
     private Long projectId;
 
@@ -110,6 +118,38 @@ public class TransactionsDTO implements Serializable {
         this.note = note;
     }
 
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(BigDecimal humidity) {
+        this.humidity = humidity;
+    }
+
+    public BigDecimal getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(BigDecimal temperature) {
+        this.temperature = temperature;
+    }
+
     public Long getProjectId() {
         return projectId;
     }
@@ -167,6 +207,10 @@ public class TransactionsDTO implements Serializable {
             ", blockHeight=" + getBlockHeight() +
             ", key='" + getKey() + "'" +
             ", note='" + getNote() + "'" +
+            ", longitude=" + getLongitude() +
+            ", latitude=" + getLatitude() +
+            ", humidity=" + getHumidity() +
+            ", temperature=" + getTemperature() +
             ", project=" + getProjectId() +
             ", user=" + getUserId() +
             ", user='" + getUserLogin() + "'" +

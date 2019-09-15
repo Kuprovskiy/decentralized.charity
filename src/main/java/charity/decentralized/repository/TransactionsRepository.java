@@ -20,5 +20,5 @@ public interface TransactionsRepository extends JpaRepository<Transactions, Long
 
     Page<Transactions> findAllByProject(Pageable pageable, Project project);
 
-    List<Transactions> findAllByProjectAndTransactionType(Project project, TransactionType transactionType);
+    Page<Transactions> findAllByProjectAndTransactionType(Pageable pageable, Project project, TransactionType transactionType);
 }

@@ -38,9 +38,9 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     private final TransactionsRepository transactionsRepository;
 
-    private final ProjectRepository projectRepository;
-
     private final TransactionsMapper transactionsMapper;
+
+    private final ProjectRepository projectRepository;
 
     public TransactionsServiceImpl(TransactionsRepository transactionsRepository,
                                    TransactionsMapper transactionsMapper,
@@ -48,36 +48,6 @@ public class TransactionsServiceImpl implements TransactionsService {
         this.transactionsRepository = transactionsRepository;
         this.transactionsMapper = transactionsMapper;
         this.projectRepository = projectRepository;
-    }
-
-    @Override
-    public String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO) {
-        String privateKey = "x9oZ6jrUVEBDP5C0005fPseqPwLshQbb9io7Upg8sNM=";
-        String space = "space1";
-        String key = "key1";
-        BloqlyClient bloqlyClient = new BloqlyClient("http://localhost:8082");
-        Optional<SignedTransaction> txOpt = bloqlyClient.getLastTransaction(space, key);
-        Long nonce = txOpt.map(tx -> tx.getNonce() + 1).orElse(1L);
-        KeyPair keyPair = KeyPair.fromPrivateKeyEncoded(privateKey);
-        Transaction tx = new Transaction();
-
-        tx.setSpace(space);
-        tx.setKey(key);
-        tx.setNonce(nonce);
-        tx.setMemo("memo");
-        tx.setTimestamp(Instant.now().toEpochMilli());
-        tx.setValue(bloqlyTransactionsDTO.toString());
-
-        List<String> tags = new ArrayList<>();
-        tags.add("tag1");
-        tags.add("tag2");
-        tx.setTags(tags);
-
-        SignedTransaction signedTx = keyPair.signTransaction(tx);
-
-        bloqlyClient.submitTransaction(signedTx);
-
-        return signedTx.getHash();
     }
 
     /**
@@ -124,24 +94,74 @@ public class TransactionsServiceImpl implements TransactionsService {
     }
 
     @Override
-    public List<Transactions> findAllDonateByProject(Long id) {
-        log.debug("Request to get all Transactions");
+    public String saveToBlockly(BloqlyTransactionsDTO bloqlyTransactionsDTO) {
 
-        Project project = projectRepository.getOne(id);
-        if (project != null) {
+        Project project = projectRepository.getOne(bloqlyTransactionsDTO.getProjectId());
+        if (project == null) {
             throw new ProjectNotFoundException();
         }
-        return transactionsRepository.findAllByProjectAndTransactionType(project, TransactionType.DONATE);
+
+        String privateKey = "x9oZ6jrUVEBDP5C0005fPseqPwLshQbb9io7Upg8sNM=";
+        String space = "space1";
+        String key = "key1";
+        BloqlyClient bloqlyClient = new BloqlyClient("http://localhost:8082");
+        Optional<SignedTransaction> txOpt = bloqlyClient.getLastTransaction(space, key);
+        Long nonce = txOpt.map(tx -> tx.getNonce() + 1).orElse(1L);
+        KeyPair keyPair = KeyPair.fromPrivateKeyEncoded(privateKey);
+        Transaction tx = new Transaction();
+
+        tx.setSpace(space);
+        tx.setKey(key);
+        tx.setNonce(nonce);
+        tx.setMemo("memo");
+        tx.setTimestamp(Instant.now().toEpochMilli());
+        tx.setValue(bloqlyTransactionsDTO.toString());
+
+        List<String> tags = new ArrayList<>();
+        tags.add("tag1");
+        tags.add("tag2");
+        tx.setTags(tags);
+
+        SignedTransaction signedTx = keyPair.signTransaction(tx);
+
+        bloqlyClient.submitTransaction(signedTx);
+
+        String thHash = signedTx.getHash();
+
+        Transactions transactions = new Transactions();
+        transactions.setHumidity(bloqlyTransactionsDTO.getHumidity());
+        transactions.setTemperature(bloqlyTransactionsDTO.getTemperature());
+        transactions.setLongitude(bloqlyTransactionsDTO.getLongitude());
+        transactions.setLatitude(bloqlyTransactionsDTO.getLatitude());
+        transactions.setTxid(thHash);
+        transactions.setTransactionType(TransactionType.SUPPLY_CHAIN);
+        transactions.setProject(project);
+        transactions.setCreatedDate(Instant.now());
+
+        transactionsRepository.save(transactions);
+
+        return thHash;
     }
 
     @Override
-    public List<Transactions> findAllSupplychainTransactionsByProject(Long id) {
+    public Page<TransactionsDTO> findAllDonateByProject(Pageable pageable, Long id) {
         log.debug("Request to get all Transactions");
 
         Project project = projectRepository.getOne(id);
-        if (project != null) {
+        if (project == null) {
             throw new ProjectNotFoundException();
         }
-        return transactionsRepository.findAllByProjectAndTransactionType(project, TransactionType.SUPPLY_CHAIN);
+        return transactionsRepository.findAllByProjectAndTransactionType(pageable, project, TransactionType.DONATE).map(transactionsMapper::toDto);
+    }
+
+    @Override
+    public Page<TransactionsDTO> findAllSupplychainTransactionsByProject(Pageable pageable, Long id) {
+        log.debug("Request to get all Transactions");
+
+        Project project = projectRepository.getOne(id);
+        if (project == null) {
+            throw new ProjectNotFoundException();
+        }
+        return transactionsRepository.findAllByProjectAndTransactionType(pageable, project, TransactionType.SUPPLY_CHAIN).map(transactionsMapper::toDto);
     }
 }

@@ -1,5 +1,6 @@
 package charity.decentralized.service.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -16,6 +17,9 @@ public class BloqlyTransactionsDTO implements Serializable {
     private BigDecimal humidity;
 
     private BigDecimal temperature;
+
+    @NotNull
+    private Long projectId;
 
 
     public BigDecimal getLongitude() {
@@ -48,6 +52,14 @@ public class BloqlyTransactionsDTO implements Serializable {
 
     public void setTemperature(BigDecimal temperature) {
         this.temperature = temperature;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     @Override

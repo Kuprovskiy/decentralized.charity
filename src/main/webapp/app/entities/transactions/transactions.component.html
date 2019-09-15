@@ -26,6 +26,10 @@
             <th jhiSortBy="blockHeight"><span jhiTranslate="decentralizedcharityApp.transactions.blockHeight">Block Height</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="key"><span jhiTranslate="decentralizedcharityApp.transactions.key">Key</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span jhiTranslate="decentralizedcharityApp.transactions.note">Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="longitude"><span jhiTranslate="decentralizedcharityApp.transactions.longitude">Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="latitude"><span jhiTranslate="decentralizedcharityApp.transactions.latitude">Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="humidity"><span jhiTranslate="decentralizedcharityApp.transactions.humidity">Humidity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="temperature"><span jhiTranslate="decentralizedcharityApp.transactions.temperature">Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="projectId"><span jhiTranslate="decentralizedcharityApp.transactions.project">Project</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="userLogin"><span jhiTranslate="decentralizedcharityApp.transactions.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
@@ -42,6 +46,10 @@
                 <td>{{transactions.blockHeight}}</td>
                 <td>{{transactions.key}}</td>
                 <td>{{transactions.note}}</td>
+                <td>{{transactions.longitude}}</td>
+                <td>{{transactions.latitude}}</td>
+                <td>{{transactions.humidity}}</td>
+                <td>{{transactions.temperature}}</td>
                 <td>
                     <div *ngIf="transactions.projectId">
                         <a [routerLink]="['/project', transactions.projectId , 'view' ]" >{{transactions.projectId}}</a>

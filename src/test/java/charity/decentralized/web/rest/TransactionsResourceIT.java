@@ -71,6 +71,22 @@ public class TransactionsResourceIT {
     private static final String DEFAULT_NOTE = "AAAAAAAAAA";
     private static final String UPDATED_NOTE = "BBBBBBBBBB";
 
+    private static final BigDecimal DEFAULT_LONGITUDE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LONGITUDE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_LONGITUDE = new BigDecimal(1 - 1);
+
+    private static final BigDecimal DEFAULT_LATITUDE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_LATITUDE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_LATITUDE = new BigDecimal(1 - 1);
+
+    private static final BigDecimal DEFAULT_HUMIDITY = new BigDecimal(1);
+    private static final BigDecimal UPDATED_HUMIDITY = new BigDecimal(2);
+    private static final BigDecimal SMALLER_HUMIDITY = new BigDecimal(1 - 1);
+
+    private static final BigDecimal DEFAULT_TEMPERATURE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_TEMPERATURE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_TEMPERATURE = new BigDecimal(1 - 1);
+
     @Autowired
     private TransactionsRepository transactionsRepository;
 
@@ -129,7 +145,11 @@ public class TransactionsResourceIT {
             .transactionStatus(DEFAULT_TRANSACTION_STATUS)
             .blockHeight(DEFAULT_BLOCK_HEIGHT)
             .key(DEFAULT_KEY)
-            .note(DEFAULT_NOTE);
+            .note(DEFAULT_NOTE)
+            .longitude(DEFAULT_LONGITUDE)
+            .latitude(DEFAULT_LATITUDE)
+            .humidity(DEFAULT_HUMIDITY)
+            .temperature(DEFAULT_TEMPERATURE);
         return transactions;
     }
     /**
@@ -147,7 +167,11 @@ public class TransactionsResourceIT {
             .transactionStatus(UPDATED_TRANSACTION_STATUS)
             .blockHeight(UPDATED_BLOCK_HEIGHT)
             .key(UPDATED_KEY)
-            .note(UPDATED_NOTE);
+            .note(UPDATED_NOTE)
+            .longitude(UPDATED_LONGITUDE)
+            .latitude(UPDATED_LATITUDE)
+            .humidity(UPDATED_HUMIDITY)
+            .temperature(UPDATED_TEMPERATURE);
         return transactions;
     }
 
@@ -180,6 +204,10 @@ public class TransactionsResourceIT {
         assertThat(testTransactions.getBlockHeight()).isEqualTo(DEFAULT_BLOCK_HEIGHT);
         assertThat(testTransactions.getKey()).isEqualTo(DEFAULT_KEY);
         assertThat(testTransactions.getNote()).isEqualTo(DEFAULT_NOTE);
+        assertThat(testTransactions.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
+        assertThat(testTransactions.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testTransactions.getHumidity()).isEqualTo(DEFAULT_HUMIDITY);
+        assertThat(testTransactions.getTemperature()).isEqualTo(DEFAULT_TEMPERATURE);
     }
 
     @Test
@@ -259,7 +287,11 @@ public class TransactionsResourceIT {
             .andExpect(jsonPath("$.[*].transactionStatus").value(hasItem(DEFAULT_TRANSACTION_STATUS.booleanValue())))
             .andExpect(jsonPath("$.[*].blockHeight").value(hasItem(DEFAULT_BLOCK_HEIGHT.intValue())))
             .andExpect(jsonPath("$.[*].key").value(hasItem(DEFAULT_KEY.toString())))
-            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())));
+            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE.toString())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.intValue())))
+            .andExpect(jsonPath("$.[*].humidity").value(hasItem(DEFAULT_HUMIDITY.intValue())))
+            .andExpect(jsonPath("$.[*].temperature").value(hasItem(DEFAULT_TEMPERATURE.intValue())));
     }
     
     @Test
@@ -280,7 +312,11 @@ public class TransactionsResourceIT {
             .andExpect(jsonPath("$.transactionStatus").value(DEFAULT_TRANSACTION_STATUS.booleanValue()))
             .andExpect(jsonPath("$.blockHeight").value(DEFAULT_BLOCK_HEIGHT.intValue()))
             .andExpect(jsonPath("$.key").value(DEFAULT_KEY.toString()))
-            .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()));
+            .andExpect(jsonPath("$.note").value(DEFAULT_NOTE.toString()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.intValue()))
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.intValue()))
+            .andExpect(jsonPath("$.humidity").value(DEFAULT_HUMIDITY.intValue()))
+            .andExpect(jsonPath("$.temperature").value(DEFAULT_TEMPERATURE.intValue()));
     }
 
     @Test
@@ -703,6 +739,374 @@ public class TransactionsResourceIT {
 
     @Test
     @Transactional
+    public void getAllTransactionsByLongitudeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude equals to DEFAULT_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.equals=" + DEFAULT_LONGITUDE);
+
+        // Get all the transactionsList where longitude equals to UPDATED_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.equals=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsInShouldWork() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude in DEFAULT_LONGITUDE or UPDATED_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.in=" + DEFAULT_LONGITUDE + "," + UPDATED_LONGITUDE);
+
+        // Get all the transactionsList where longitude equals to UPDATED_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.in=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude is not null
+        defaultTransactionsShouldBeFound("longitude.specified=true");
+
+        // Get all the transactionsList where longitude is null
+        defaultTransactionsShouldNotBeFound("longitude.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude is greater than or equal to DEFAULT_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.greaterThanOrEqual=" + DEFAULT_LONGITUDE);
+
+        // Get all the transactionsList where longitude is greater than or equal to UPDATED_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.greaterThanOrEqual=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude is less than or equal to DEFAULT_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.lessThanOrEqual=" + DEFAULT_LONGITUDE);
+
+        // Get all the transactionsList where longitude is less than or equal to SMALLER_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.lessThanOrEqual=" + SMALLER_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsLessThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude is less than DEFAULT_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.lessThan=" + DEFAULT_LONGITUDE);
+
+        // Get all the transactionsList where longitude is less than UPDATED_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.lessThan=" + UPDATED_LONGITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLongitudeIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where longitude is greater than DEFAULT_LONGITUDE
+        defaultTransactionsShouldNotBeFound("longitude.greaterThan=" + DEFAULT_LONGITUDE);
+
+        // Get all the transactionsList where longitude is greater than SMALLER_LONGITUDE
+        defaultTransactionsShouldBeFound("longitude.greaterThan=" + SMALLER_LONGITUDE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude equals to DEFAULT_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.equals=" + DEFAULT_LATITUDE);
+
+        // Get all the transactionsList where latitude equals to UPDATED_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.equals=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsInShouldWork() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude in DEFAULT_LATITUDE or UPDATED_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.in=" + DEFAULT_LATITUDE + "," + UPDATED_LATITUDE);
+
+        // Get all the transactionsList where latitude equals to UPDATED_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.in=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude is not null
+        defaultTransactionsShouldBeFound("latitude.specified=true");
+
+        // Get all the transactionsList where latitude is null
+        defaultTransactionsShouldNotBeFound("latitude.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude is greater than or equal to DEFAULT_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.greaterThanOrEqual=" + DEFAULT_LATITUDE);
+
+        // Get all the transactionsList where latitude is greater than or equal to UPDATED_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.greaterThanOrEqual=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude is less than or equal to DEFAULT_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.lessThanOrEqual=" + DEFAULT_LATITUDE);
+
+        // Get all the transactionsList where latitude is less than or equal to SMALLER_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.lessThanOrEqual=" + SMALLER_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsLessThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude is less than DEFAULT_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.lessThan=" + DEFAULT_LATITUDE);
+
+        // Get all the transactionsList where latitude is less than UPDATED_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.lessThan=" + UPDATED_LATITUDE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByLatitudeIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where latitude is greater than DEFAULT_LATITUDE
+        defaultTransactionsShouldNotBeFound("latitude.greaterThan=" + DEFAULT_LATITUDE);
+
+        // Get all the transactionsList where latitude is greater than SMALLER_LATITUDE
+        defaultTransactionsShouldBeFound("latitude.greaterThan=" + SMALLER_LATITUDE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity equals to DEFAULT_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.equals=" + DEFAULT_HUMIDITY);
+
+        // Get all the transactionsList where humidity equals to UPDATED_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.equals=" + UPDATED_HUMIDITY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsInShouldWork() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity in DEFAULT_HUMIDITY or UPDATED_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.in=" + DEFAULT_HUMIDITY + "," + UPDATED_HUMIDITY);
+
+        // Get all the transactionsList where humidity equals to UPDATED_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.in=" + UPDATED_HUMIDITY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity is not null
+        defaultTransactionsShouldBeFound("humidity.specified=true");
+
+        // Get all the transactionsList where humidity is null
+        defaultTransactionsShouldNotBeFound("humidity.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity is greater than or equal to DEFAULT_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.greaterThanOrEqual=" + DEFAULT_HUMIDITY);
+
+        // Get all the transactionsList where humidity is greater than or equal to UPDATED_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.greaterThanOrEqual=" + UPDATED_HUMIDITY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity is less than or equal to DEFAULT_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.lessThanOrEqual=" + DEFAULT_HUMIDITY);
+
+        // Get all the transactionsList where humidity is less than or equal to SMALLER_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.lessThanOrEqual=" + SMALLER_HUMIDITY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsLessThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity is less than DEFAULT_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.lessThan=" + DEFAULT_HUMIDITY);
+
+        // Get all the transactionsList where humidity is less than UPDATED_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.lessThan=" + UPDATED_HUMIDITY);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByHumidityIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where humidity is greater than DEFAULT_HUMIDITY
+        defaultTransactionsShouldNotBeFound("humidity.greaterThan=" + DEFAULT_HUMIDITY);
+
+        // Get all the transactionsList where humidity is greater than SMALLER_HUMIDITY
+        defaultTransactionsShouldBeFound("humidity.greaterThan=" + SMALLER_HUMIDITY);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature equals to DEFAULT_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.equals=" + DEFAULT_TEMPERATURE);
+
+        // Get all the transactionsList where temperature equals to UPDATED_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.equals=" + UPDATED_TEMPERATURE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsInShouldWork() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature in DEFAULT_TEMPERATURE or UPDATED_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.in=" + DEFAULT_TEMPERATURE + "," + UPDATED_TEMPERATURE);
+
+        // Get all the transactionsList where temperature equals to UPDATED_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.in=" + UPDATED_TEMPERATURE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature is not null
+        defaultTransactionsShouldBeFound("temperature.specified=true");
+
+        // Get all the transactionsList where temperature is null
+        defaultTransactionsShouldNotBeFound("temperature.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature is greater than or equal to DEFAULT_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.greaterThanOrEqual=" + DEFAULT_TEMPERATURE);
+
+        // Get all the transactionsList where temperature is greater than or equal to UPDATED_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.greaterThanOrEqual=" + UPDATED_TEMPERATURE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature is less than or equal to DEFAULT_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.lessThanOrEqual=" + DEFAULT_TEMPERATURE);
+
+        // Get all the transactionsList where temperature is less than or equal to SMALLER_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.lessThanOrEqual=" + SMALLER_TEMPERATURE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsLessThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature is less than DEFAULT_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.lessThan=" + DEFAULT_TEMPERATURE);
+
+        // Get all the transactionsList where temperature is less than UPDATED_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.lessThan=" + UPDATED_TEMPERATURE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllTransactionsByTemperatureIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        transactionsRepository.saveAndFlush(transactions);
+
+        // Get all the transactionsList where temperature is greater than DEFAULT_TEMPERATURE
+        defaultTransactionsShouldNotBeFound("temperature.greaterThan=" + DEFAULT_TEMPERATURE);
+
+        // Get all the transactionsList where temperature is greater than SMALLER_TEMPERATURE
+        defaultTransactionsShouldBeFound("temperature.greaterThan=" + SMALLER_TEMPERATURE);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllTransactionsByProjectIsEqualToSomething() throws Exception {
         // Initialize the database
         transactionsRepository.saveAndFlush(transactions);
@@ -755,7 +1159,11 @@ public class TransactionsResourceIT {
             .andExpect(jsonPath("$.[*].transactionStatus").value(hasItem(DEFAULT_TRANSACTION_STATUS.booleanValue())))
             .andExpect(jsonPath("$.[*].blockHeight").value(hasItem(DEFAULT_BLOCK_HEIGHT.intValue())))
             .andExpect(jsonPath("$.[*].key").value(hasItem(DEFAULT_KEY)))
-            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)));
+            .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.intValue())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.intValue())))
+            .andExpect(jsonPath("$.[*].humidity").value(hasItem(DEFAULT_HUMIDITY.intValue())))
+            .andExpect(jsonPath("$.[*].temperature").value(hasItem(DEFAULT_TEMPERATURE.intValue())));
 
         // Check, that the count call also returns 1
         restTransactionsMockMvc.perform(get("/api/transactions/count?sort=id,desc&" + filter))
@@ -810,7 +1218,11 @@ public class TransactionsResourceIT {
             .transactionStatus(UPDATED_TRANSACTION_STATUS)
             .blockHeight(UPDATED_BLOCK_HEIGHT)
             .key(UPDATED_KEY)
-            .note(UPDATED_NOTE);
+            .note(UPDATED_NOTE)
+            .longitude(UPDATED_LONGITUDE)
+            .latitude(UPDATED_LATITUDE)
+            .humidity(UPDATED_HUMIDITY)
+            .temperature(UPDATED_TEMPERATURE);
         TransactionsDTO transactionsDTO = transactionsMapper.toDto(updatedTransactions);
 
         restTransactionsMockMvc.perform(put("/api/transactions")
@@ -830,6 +1242,10 @@ public class TransactionsResourceIT {
         assertThat(testTransactions.getBlockHeight()).isEqualTo(UPDATED_BLOCK_HEIGHT);
         assertThat(testTransactions.getKey()).isEqualTo(UPDATED_KEY);
         assertThat(testTransactions.getNote()).isEqualTo(UPDATED_NOTE);
+        assertThat(testTransactions.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
+        assertThat(testTransactions.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testTransactions.getHumidity()).isEqualTo(UPDATED_HUMIDITY);
+        assertThat(testTransactions.getTemperature()).isEqualTo(UPDATED_TEMPERATURE);
     }
 
     @Test

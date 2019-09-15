@@ -24,6 +24,10 @@
       "blockHeight": "Block Height",
       "key": "Key",
       "note": "Note",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
+      "humidity": "Humidity",
+      "temperature": "Temperature",
       "project": "Project",
       "user": "User"
     }
